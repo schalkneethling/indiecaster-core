@@ -15,16 +15,22 @@ A clean, customizable starter template for creating your own podcast website usi
    npm install
    ```
 
-3. **Customize your configuration**
+3. **Initialize your podcast** (Recommended)
+   ```bash
+   npm run init-podcast
+   ```
+   This interactive script will help you configure your podcast settings.
+
+4. **Or manually customize your configuration**
    - Edit `indiecaster.config.js` with your podcast details
    - Update the domain, podcast name, host name, and other settings
 
-4. **Add your content**
+5. **Add your content**
    - Replace episode content in `src/content/episodes/`
    - Add guest profiles in `src/content/guests/`
    - Add your media files to the appropriate folders
 
-5. **Start developing**
+6. **Start developing**
    ```bash
    npm run dev
    ```
@@ -102,6 +108,8 @@ npm run preview
 
 ## 📚 Documentation
 
+- [Getting Started Guide](docs/GETTING-STARTED.md) - Complete setup instructions
+- [Setup Checklist](docs/SETUP-CHECKLIST.md) - Step-by-step checklist
 - [Content Collections Guide](docs/content-collections-user-guide.md)
 - [Schema Reference](docs/schemas.md)
 - [Implementation Summary](docs/IMPLEMENTATION-SUMMARY.md)

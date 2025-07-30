@@ -4,6 +4,19 @@ This directory contains Node.js scripts to help content creators generate proper
 
 ## Available Scripts
 
+### Podcast Initialization
+Interactive script to set up your podcast configuration.
+
+```bash
+npm run init-podcast
+```
+
+This script will prompt you for:
+- Podcast name and description
+- Host name
+- Domain name
+- Featured episode details (optional)
+
 ### Episode Generator
 ```bash
 npm run create-episode "Your Episode Title"

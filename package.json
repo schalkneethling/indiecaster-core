@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "create-episode": "node scripts/create-episode.js",
-    "create-guest": "node scripts/create-guest.js"
+    "create-guest": "node scripts/create-guest.js",
+    "init-podcast": "node scripts/init-podcast.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",
