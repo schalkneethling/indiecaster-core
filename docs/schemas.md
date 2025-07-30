@@ -40,21 +40,21 @@ This document serves as the single source of truth for all content collection sc
 
 ```yaml
 ---
-title: "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance"
-description: "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry."
+title: "Getting Started with Your First Podcast"
+description: "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world."
 pubDate: 2024-01-15
 duration: "45:30"
-audioFile: "techishiring-com-people-first-open-source-as-career-growth-a-i-nuance"
+audioFile: "getting-started-podcast"
 artwork:
-  src: "jane-springfield"
-  alt: "Jane Springfield discussing tech hiring and open source"
+  src: "episode-1-artwork"
+  alt: "Getting Started with Your First Podcast artwork"
   podcast:
     showCover: "show-cover" # 3000x3000px for podcast platforms
     episodeArt: "episode-1-art" # 3000x3000px for individual episodes
     heroImage: "hero-image" # 4320x1080px for wide format displays
-showNotes: "This episode covers the intersection of tech hiring, open source contributions, and AI in software development."
+showNotes: "Learn the fundamentals of starting your own podcast from planning to publishing."
 guests: ["jane-springfield"]
-tags: ["tech hiring", "open source", "career growth", "AI", "software engineering"]
+tags: ["podcasting", "getting started", "content creation", "audio production"]
 youtube: "dQw4w9WgXcQ"
 explicit: false
 episodeNumber: 1
@@ -92,15 +92,13 @@ hasSrtTranscript: false
 ```yaml
 ---
 name: "Jane Springfield"
-bio: "Jane is a software engineer with over 10 years of experience in the tech industry. She's passionate about helping developers grow their careers through open source contributions."
+bio: "Jane Springfield is a podcast consultant and producer with over 5 years of experience helping creators launch successful shows. She specializes in helping new podcasters find their voice and build their audience."
 profilePicture: "jane-springfield"
-socialLinks:
-  twitter: "https://twitter.com/janespringfield"
+social:
+  twitter: "janespringfield"
   linkedin: "https://linkedin.com/in/janespringfield"
-  github: "https://github.com/janespringfield"
-website: "https://janespringfield.com"
-company: "TechIsHiring.com"
-title: "Senior Software Engineer"
+  github: "janespringfield"
+  website: "https://janespringfield.com"
 episodes: ["episode-1"]
 ---
 ```
@@ -152,7 +150,7 @@ Each episode requires artwork in multiple formats for optimal performance and Ap
 
 Audio files should be in MP3 format with descriptive filenames.
 
-**Example**: `techishiring-com-people-first-open-source-as-career-growth-a-i-nuance.mp3`
+**Example**: `getting-started-podcast.mp3`
 
 ## Related Documentation
 

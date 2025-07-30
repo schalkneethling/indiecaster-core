@@ -11,7 +11,7 @@ export async function GET(context) {
 
   return rss({
     title: 'IndieCaster',
-    description: 'The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.',
+    description: indieCasterConfig.elevatorPitch,
     site: context.site,
     items: publishedEpisodes.map((episode) => ({
       title: episode.data.title,

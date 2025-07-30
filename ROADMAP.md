@@ -30,7 +30,7 @@ IndieCaster is a complete website toolkit for indie podcasters, built with Astro
 <rss version="2.0">
   <channel>
     <title>IndieCaster</title>
-    <description>The Mycelium Network podcast...</description>
+    <description>[YOUR_PODCAST_NAME] - [BRIEF_DESCRIPTION]</description>
     <link>https://indiecastor.com/</link>
     <language>en</language>
     <item>
@@ -156,7 +156,7 @@ Sitemap: https://indiecastor.com/sitemap-index.xml
   "@context": "https://schema.org",
   "@type": "PodcastEpisode",
   "name": "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance",
-  "description": "In this episode of the Mycelium Network Podcast...",
+  "description": "In this episode of [YOUR_PODCAST_NAME]...",
   "episodeNumber": 1,
   "seasonNumber": 1,
   "duration": "45:30",
@@ -197,7 +197,7 @@ Sitemap: https://indiecastor.com/sitemap-index.xml
 
 <!-- SEO Meta Tags -->
 <meta name="robots" content="index, follow" />
-<meta name="author" content="Bronwyn Fleurs" />
+<meta name="author" content="[YOUR_NAME]" />
 <meta name="keywords" content="podcast, technology, web development..." />
 <meta name="theme-color" content="#1c1c44" />
 ```

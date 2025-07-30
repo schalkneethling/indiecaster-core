@@ -1,4 +1,6 @@
 ---
+import { indieCasterConfig } from "../../indiecaster.config.js";
+
 interface Props {
     type: "podcast" | "episode";
     data: {
@@ -21,6 +23,7 @@ interface Props {
 }
 
 const { type, data } = Astro.props;
+const { domain } = indieCasterConfig;
 
 // Generate structured data based on type
 let structuredData: any = {};
@@ -32,13 +35,13 @@ if (type === "podcast") {
         name: data.name || "IndieCaster",
         description:
             data.description ||
-            "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
-        url: data.url || "https://indiecastor.com",
+            "[YOUR_PODCAST_NAME] - [BRIEF_DESCRIPTION_OF_YOUR_PODCAST]",
+        url: data.url || `https://${domain}`,
         image:
-            data.image || "https://indiecastor.com/episode-artwork/default.png",
+            data.image || `https://${domain}/episode-artwork/default.png`,
         author: {
             "@type": "Person",
-            name: data.author || "Bronwyn Fleurs",
+            name: data.author || "[YOUR_NAME]",
         },
         publisher: {
             "@type": "Organization",
@@ -66,7 +69,7 @@ if (type === "podcast") {
         partOfSeries: {
             "@type": "PodcastSeries",
             name: "IndieCaster",
-            url: "https://indiecastor.com",
+            url: `https://${domain}`,
         },
         author:
             data.guests?.map((guest) => ({

@@ -5,25 +5,26 @@ export const indieCasterConfig = {
   colorSecondaryColor: "#dab97e",
   colorSecondaryColorDark: "#38290d",
   colorSecondaryColorLight: "#fff1d7",
-  domain: "indiecastor.com",
+  domain: "[YOUR_DOMAIN]",
   // <<-- START :: Your elevator pitch
   elevatorPitch:
-    "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
+    "The IndieCaster Podcast - A show about independent podcasting, content creation, and building your audience from the ground up.",
   // <<-- END :: Your elevator pitch
-  // <<-- START :: Featured episode configuration
+  // <<-- START :: Featured episode configuration (OPTIONAL)
+  // Remove this entire section if you want to use the latest published episode instead
   featuredEpisodeGuestName: "Jane Springfield",
   featuredEpisodeGuestProfilePicture: "jane-springfield",
   featuredEpisodeTitle:
-    "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance",
+    "Getting Started with Your First Podcast",
   featuredEpisodeSummary:
-    "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry. Chad discusses his work in front-end engineering and his exploration of back-end engineering. He also talks about his role in TechIsHiring, an organization that helps people find job opportunities in the tech industry. Chad's passion for exploring interesting problems and ideas in the industry motivates him. He shares his interest in Rust and how it can help us write cleaner code, especially in contrast to the sometimes chaotic JavaScript ecosystem. Tune in to hear Chad's insights and experiences as a software engineer.",
-  featuredEpisodeTrack: "techishiring-com",
+    "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world.",
+  featuredEpisodeTrack: "getting-started-podcast",
   featuredEpisodeURL: "episode-1",
   // <<-- END :: Featured episode configuration
   headerBackgroundColor: "#1c1c44",
   headerForegroundColor: "#fff",
-  hostName: "Bronwyn Fleurs",
-  hostProfilePicture: "bronwyn-fleurs",
+  hostName: "Your Name",
+  hostProfilePicture: "your-profile-picture",
   logo: "logo.svg",
   logoHeight: "275",
   logoWidth: "500",
