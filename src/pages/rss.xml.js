@@ -1,5 +1,6 @@
 import rss from '@astrojs/rss';
 import { getCollection } from 'astro:content';
+import { indieCasterConfig } from '../../indiecaster.config.js';
 
 export async function GET(context) {
   const episodes = await getCollection('episodes');

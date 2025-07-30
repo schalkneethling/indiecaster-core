@@ -1,11 +1,9 @@
 import { defineConfig } from "astro/config";
 import sitemap from '@astrojs/sitemap';
 
-import { indieCasterConfig } from './indiecaster.config.js';
-
 // https://astro.build/config
 export default defineConfig({
-  site: `https://${indieCasterConfig.domain}`,
+  site: "https://your.site",
   output: 'static', // Explicitly set output mode to static
   integrations: [sitemap()],
   image: {
