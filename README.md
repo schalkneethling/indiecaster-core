@@ -104,12 +104,19 @@ npm run build
 
 # Preview production build
 npm run preview
+
+# Seed demo content for testing
+npm run demo-content seed ./demo-content
+
+# Remove demo content and restore original
+npm run demo-content teardown
 ```
 
 ## 📚 Documentation
 
 - [Getting Started Guide](docs/GETTING-STARTED.md) - Complete setup instructions
 - [Setup Checklist](docs/SETUP-CHECKLIST.md) - Step-by-step checklist
+- [Demo Content Guide](docs/DEMO-CONTENT-GUIDE.md) - Testing and demonstration content
 - [Content Collections Guide](docs/content-collections-user-guide.md)
 - [Schema Reference](docs/schemas.md)
 - [Implementation Summary](docs/IMPLEMENTATION-SUMMARY.md)
