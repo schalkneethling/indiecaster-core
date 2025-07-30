@@ -1,19 +1,42 @@
 ---
 import CardPerson from "./CardPerson.astro";
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
+import type { CollectionEntry } from "astro:content";
 
-const { colorPrimaryColor } = Config.options;
-const { frontMatter } = Astro.props;
-const featuredGuest = {
-  name: frontMatter.guest,
-  pictureSrc: `/profile-images/${frontMatter.guestProfilePicture}`,
-  type: "guest",
-};
+interface Props {
+  episode?: CollectionEntry<"episodes">;
+}
+
+const { episode } = Astro.props;
+const { hostName, hostProfilePicture, colorPrimaryColor } = indieCasterConfig;
+
+// Host information
 const host = {
-  name: frontMatter.host,
-  pictureSrc: `/profile-images/${frontMatter.hostProfilePicture}`,
+  name: hostName,
+  pictureSrc: `/profile-images/${hostProfilePicture}`,
   type: "host",
 };
+
+// Guest information - handle multiple guests or no guests
+const guests = [];
+
+if (episode?.data.guests && episode.data.guests.length > 0) {
+  // Add all guests
+  episode.data.guests.forEach((guestName) => {
+    let guestProfilePicture = guestName.toLowerCase().replace(/\s+/g, "-");
+
+    // Handle featured episode custom profile picture
+    if ((episode as any)?.featuredGuestProfilePicture && guests.length === 0) {
+      guestProfilePicture = (episode as any).featuredGuestProfilePicture;
+    }
+
+    guests.push({
+      name: guestName,
+      pictureSrc: `/profile-images/${guestProfilePicture}`,
+      type: "guest",
+    });
+  });
+}
 ---
 
 <ul class="reset-list featured-episode-profiles">
@@ -22,13 +45,18 @@ const host = {
       <h2 class="card-person-name" slot="card-person-name">{host.name}</h2>
     </CardPerson>
   </li>
-  <li class="featured-episode-profile">
-    <CardPerson person={featuredGuest}>
-      <h2 class="card-person-name" slot="card-person-name">
-        {featuredGuest.name}
-      </h2>
-    </CardPerson>
-  </li>
+  {
+    // Show all guests if episode has guests
+    guests.map((guest) => (
+      <li class="featured-episode-profile">
+        <CardPerson person={guest}>
+          <h2 class="card-person-name" slot="card-person-name">
+            {guest.name}
+          </h2>
+        </CardPerson>
+      </li>
+    ))
+  }
 </ul>
 
 <style define:vars={{ colorPrimaryColor }}>

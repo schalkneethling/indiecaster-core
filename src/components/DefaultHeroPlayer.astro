@@ -1,7 +1,12 @@
 ---
+import { getArtworkWithFormat } from "../utils/artwork.js";
+
 const { episode } = Astro.props;
-const backgroundImg = episode.artwork
-  ? `url(/episode-artwork/${episode.artwork}.webp)`
+
+// Get artwork for hero context with WebP format for better performance
+const heroArtwork = getArtworkWithFormat(episode.artwork, "hero", "webp");
+const backgroundImg = heroArtwork.src
+  ? `url(${heroArtwork.src})`
   : "url(/episode-artwork/episode-default.webp)";
 ---
 

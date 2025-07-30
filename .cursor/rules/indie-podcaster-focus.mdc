@@ -1,0 +1,97 @@
+# Indie Podcaster Focus
+
+## Core Mission
+IndieCaster is designed to make managing a podcast as simple and impactful as possible. Indie podcasters have a LOT to do, so this product should always aim to make their lives easier.
+
+## Key Principles
+
+### 1. Start Simple, Grow Gradually
+- **Essentials First**: Users can start with just 3 files (show cover, audio, guest photos)
+- **Progressive Complexity**: Add more artwork and features as the podcast grows
+- **No Overwhelm**: Avoid requiring everything upfront
+
+### 2. Platform-Agnostic Design
+- **Generic Naming**: Use industry-standard terms, not platform-specific names
+- **Universal Compatibility**: Work across all major podcast platforms
+- **Future-Proof**: Don't tie to specific platform requirements
+
+### 3. Context-Aware Intelligence
+- **Automatic Selection**: System chooses appropriate artwork for each context
+- **Smart Fallbacks**: Graceful degradation when optional artwork isn't available
+- **Performance Optimized**: WebP support, lazy loading, responsive design
+
+### 4. Practical Documentation
+- **User-Focused**: Write for busy podcasters, not developers
+- **Progressive Disclosure**: Start with essentials, expand as needed
+- **Real-World Examples**: Show actual use cases and decision points
+
+## User Experience Guidelines
+
+### For New Podcasters
+- **Minimal Setup**: Get started with just show cover + audio files
+- **Clear Paths**: Know exactly what to add and when
+- **No Technical Jargon**: Use simple, clear language
+- **Pro Tips**: Provide practical advice for non-designers
+
+### For Growing Podcasts
+- **Optional Enhancements**: Episode-specific artwork, hero images, promo audio
+- **Batch Work**: Create artwork in batches for efficiency
+- **Templates**: Leverage existing resources and templates
+- **Professional Growth**: Clear path to professional features
+
+### For Established Podcasts
+- **Advanced Features**: Channel artwork, subscription content, multiple formats
+- **Performance Optimization**: CDN support, advanced caching
+- **Platform Integration**: RSS feeds, social media, distribution
+
+## Development Priorities
+
+### Always Consider
+1. **Simplicity**: Can this be made simpler?
+2. **Impact**: Does this make the podcast more discoverable/engaging?
+3. **Time**: Does this save the podcaster time?
+4. **Quality**: Does this improve the professional appearance?
+
+### Avoid
+- **Over-Engineering**: Don't add complexity without clear benefit
+- **Platform Lock-in**: Don't tie to specific platforms unnecessarily
+- **Technical Jargon**: Don't confuse users with unnecessary technical details
+- **All-or-Nothing**: Don't require everything to be perfect from day one
+
+## Content Strategy
+
+### Documentation Tone
+- **Encouraging**: "You can do this!" not "You must do this"
+- **Practical**: Real-world advice, not theoretical perfection
+- **Progressive**: Start here, grow from here
+- **Supportive**: Resources and help for non-designers
+
+### Feature Design
+- **Defaults**: Sensible defaults that work well
+- **Optional**: Most features should be optional enhancements
+- **Discoverable**: Users should find features when they need them
+- **Forgiving**: Graceful handling of missing or imperfect content
+
+## Success Metrics
+
+### For Users
+- **Time to First Episode**: How quickly can someone publish their first episode?
+- **Artwork Quality**: Does the podcast look professional?
+- **Platform Success**: Does the podcast perform well on platforms?
+- **Growth Path**: Can the podcast grow with the platform?
+
+### For Developers
+- **Code Maintainability**: Is the system easy to understand and modify?
+- **Performance**: Does the site load quickly and work well?
+- **Compatibility**: Does it work across all target platforms?
+- **Extensibility**: Can new features be added easily?
+
+## References
+- [docs/MEDIA-FILES-GUIDE.md](mdc:docs/MEDIA-FILES-GUIDE.md) - User-focused media guide
+- [docs/PODCAST-ARTWORK-GUIDE.md](mdc:docs/PODCAST-ARTWORK-GUIDE.md) - Industry standards
+- [PROJECT-GOALS.md](mdc:PROJECT-GOALS.md) - Project objectives
+- [docs/content-collections-user-guide.md](mdc:docs/content-collections-user-guide.md) - Content management
+description:
+globs:
+alwaysApply: false
+---

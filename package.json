@@ -7,12 +7,18 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "create-episode": "node scripts/create-episode.js",
+    "create-guest": "node scripts/create-guest.js"
   },
   "dependencies": {
+    "@astrojs/rss": "^4.0.12",
+    "@astrojs/sitemap": "^3.4.2",
     "astro": "^5.12.3",
     "autoprefixer": "^10.4.21",
-    "cssnano": "^7.1.0"
+    "cssnano": "^7.1.0",
+    "sharp": "^0.34.3",
+    "zod": "^3.25.76"
   },
   "devDependencies": {
     "astro-integration-kit": "^0.18.0"

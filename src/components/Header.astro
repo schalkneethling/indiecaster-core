@@ -1,11 +1,11 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
 import { customProperties } from "../utils/custom-properties";
 import Logo from "./Logo.astro";
 
 const { headerBackgroundColor, headerForegroundColor } = customProperties;
-const { mainNavigation } = Config.options;
+const { mainNavigation } = indieCasterConfig;
 ---
 
 <header class="page-header">

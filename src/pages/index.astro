@@ -1,12 +1,79 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
+import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EpisodeSummary from "../components/EpisodeSummary.astro";
 import Subscribe from "../components/Subscribe.astro";
 import AboutElevatorPitch from "../components/AboutElevatorPitch.astro";
 
-const { metaDefaultDescription, podcastName } = Config.options;
+const {
+  metaDefaultDescription,
+  podcastName,
+  featuredEpisodeURL = "",
+  featuredEpisodeTitle = "",
+  featuredEpisodeSummary = "",
+  featuredEpisodeGuestName = "",
+  featuredEpisodeGuestProfilePicture = "",
+  featuredEpisodeTrack = "",
+} = indieCasterConfig;
+
+// Get all episodes for validation
+const episodes = await getCollection("episodes");
+const publishedEpisodes = episodes.filter((episode) => !episode.data.draft);
+
+// Check if featured episode is configured (defensive check for missing properties)
+const hasFeaturedEpisode =
+  featuredEpisodeURL &&
+  featuredEpisodeTitle &&
+  featuredEpisodeURL.trim() !== "" &&
+  featuredEpisodeTitle.trim() !== "";
+
+let featuredEpisode = null;
+
+if (hasFeaturedEpisode) {
+  // Validate that the configured featured episode actually exists
+  const configuredEpisode = publishedEpisodes.find(
+    (episode) => episode.slug === featuredEpisodeURL,
+  );
+
+  if (configuredEpisode) {
+    // Use the actual episode from content collections (ensures all data is correct)
+    featuredEpisode = {
+      ...configuredEpisode,
+      // Override with featured episode configuration for display
+      data: {
+        ...configuredEpisode.data,
+        title: featuredEpisodeTitle,
+        description: featuredEpisodeSummary,
+        guests: [featuredEpisodeGuestName],
+        audioFile: featuredEpisodeTrack,
+      },
+      // Add custom property for featured episode profile picture
+      featuredGuestProfilePicture: featuredEpisodeGuestProfilePicture,
+    };
+  } else {
+    // Featured episode doesn't exist - log warning and fallback to latest
+    console.warn(
+      `⚠️ Featured episode "${featuredEpisodeURL}" not found in content collections. Falling back to latest published episode.`,
+    );
+    console.warn(
+      `Available episodes: ${publishedEpisodes.map((e) => e.slug).join(", ")}`,
+    );
+
+    // Fallback to latest published episode
+    featuredEpisode = publishedEpisodes.sort(
+      (a, b) =>
+        new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+    )[0];
+  }
+} else {
+  // Fallback to latest published episode if no featured episode is configured
+  featuredEpisode = publishedEpisodes.sort(
+    (a, b) =>
+      new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+  )[0];
+}
 ---
 
 <BaseLayout
@@ -14,7 +81,7 @@ const { metaDefaultDescription, podcastName } = Config.options;
   metaPageTitle={podcastName}
 >
   <main>
-    <EpisodeSummary />
+    <EpisodeSummary episode={featuredEpisode} />
     <Subscribe />
     <AboutElevatorPitch />
   </main>

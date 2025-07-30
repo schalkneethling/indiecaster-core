@@ -1,0 +1,76 @@
+# Content Collections Guidelines
+
+## Schema Structure
+
+All content collections are defined in [src/content.config.ts](mdc:src/content.config.ts) and documented in [docs/schemas.md](mdc:docs/schemas.md).
+
+### Episode Files
+- **Location**: `src/content/episodes/*.md`
+- **Schema**: See [docs/schemas.md](mdc:docs/schemas.md) for complete field definitions
+- **Required Fields**: title, description, pubDate, duration, audioFile, artwork, showNotes
+- **Optional Fields**: draft, guests, tags, youtube, explicit, episodeNumber, season, hasVttTranscript, hasSrtTranscript
+
+### Guest Files
+- **Location**: `src/content/guests/*.md`
+- **Schema**: See [docs/schemas.md](mdc:docs/schemas.md) for complete field definitions
+- **Required Fields**: name, bio, profilePicture
+- **Optional Fields**: socialLinks, website, company, title, episodes
+
+## Artwork System Integration
+
+### Platform-Agnostic Artwork Schema
+The artwork field supports both legacy and new platform-agnostic formats:
+
+```typescript
+artwork: z.object({
+  src: z.string(),                    // Legacy fallback
+  alt: z.string(),                    // Alt text for accessibility
+  podcast: z.object({                 // Platform-agnostic artwork
+    showCover: z.string().optional(),    // 3000x3000px for podcast platforms
+    episodeArt: z.string().optional(),   // 3000x3000px for individual episodes
+    heroImage: z.string().optional(),    // 4320x1080px for wide format displays
+  }).optional(),
+  legacy: z.object({                  // Backward compatibility
+    src: z.string(),
+    alt: z.string()
+  }).optional()
+})
+```
+
+### Artwork Context Selection
+The system automatically selects appropriate artwork based on display context:
+- **Show Context**: Uses `podcast.showCover` for main branding
+- **Episode Context**: Uses `podcast.episodeArt` for individual episodes
+- **Hero Context**: Uses `podcast.heroImage` for wide format displays
+- **Card Context**: Uses episode art with fallback to show cover
+- **RSS Context**: Optimized for podcast platform distribution
+- **Homepage Context**: Optimized for website display
+
+### Utility Functions
+All artwork logic is centralized in [src/utils/artwork.js](mdc:src/utils/artwork.js):
+- `getArtwork(artwork, context)` - Selects appropriate artwork
+- `getArtworkWithFormat(artwork, context, format)` - Adds format optimization
+- `getRssArtwork(artwork)` - RSS feed optimization
+- `getHomepageArtwork(artwork)` - Website optimization
+
+## File Naming
+- Use kebab-case for filenames: `episode-title.md`, `guest-name.md`
+- Filename becomes the URL slug for episodes
+- Filename becomes the guest ID for guests
+
+## Media Files
+- **Profile Images**: `public/profile-images/` (WebP preferred, PNG fallback)
+- **Episode Artwork**: `public/episode-artwork/` (PNG/JPEG, 3000x3000px)
+- **Audio Files**: `public/audio/episodes/` (MP3 format)
+
+## Validation
+- All content is validated against Zod schemas at build time
+- TypeScript provides autocomplete and type safety
+- Invalid content will cause build failures
+- Backward compatibility maintained for legacy artwork fields
+
+## References
+- [docs/schemas.md](mdc:docs/schemas.md) - Complete schema documentation
+- [docs/MEDIA-FILES-GUIDE.md](mdc:docs/MEDIA-FILES-GUIDE.md) - Media files guide
+- [docs/PODCAST-ARTWORK-INTEGRATION.md](mdc:docs/PODCAST-ARTWORK-INTEGRATION.md) - Artwork system details
+- [src/utils/artwork.js](mdc:src/utils/artwork.js) - Artwork utility functions

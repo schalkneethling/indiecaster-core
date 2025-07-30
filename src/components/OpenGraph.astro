@@ -1,13 +1,52 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  url?: string;
+  type?: "website" | "article" | "music.song";
+}
 
 const { domain, metaDefaultDescription, metaLocale, podcastName } =
-  Config.options;
+  indieCasterConfig;
+const { title, description, image, url, type = "website" } = Astro.props;
+
+const ogTitle = title || podcastName;
+const ogDescription = description || metaDefaultDescription;
+const ogImage = image || `https://${domain}/social-share.png`;
+const ogUrl = url || `https://${domain}`;
 ---
 
-<meta property="og:url" content={`https://${domain}`} />
-<meta property="og:title" content={podcastName} />
-<meta property="og:description" content={metaDefaultDescription} />
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={ogUrl} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:image" content={ogImage} />
 <meta property="og:locale" content={metaLocale} />
-<meta property="og:image" content={`https://${domain}/social-share.png`} />
+<meta property="og:site_name" content={podcastName} />
+
+<!-- Twitter -->
 <meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={ogUrl} />
+<meta property="twitter:title" content={ogTitle} />
+<meta property="twitter:description" content={ogDescription} />
+<meta property="twitter:image" content={ogImage} />
+
+<!-- Additional SEO Meta Tags -->
+<meta name="robots" content="index, follow" />
+<meta name="author" content="Bronwyn Fleurs" />
+<meta
+  name="keywords"
+  content="podcast, technology, web development, indie podcasting, mycelium network"
+/>
+<meta name="theme-color" content="#1c1c44" />
+
+<!-- Podcast-specific meta tags -->
+<meta
+  name="apple-itunes-app"
+  content="app-argument=podcast://indiecastor.com"
+/>
+<meta name="application-name" content={podcastName} />

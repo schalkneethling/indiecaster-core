@@ -1,0 +1,54 @@
+---
+import { Image } from "astro:assets";
+
+interface Props {
+    src: string;
+    alt: string;
+    width?: number;
+    height?: number;
+    class?: string;
+    loading?: "lazy" | "eager";
+    decoding?: "async" | "sync" | "auto";
+}
+
+const {
+    src,
+    alt,
+    width,
+    height,
+    class: className,
+    loading = "lazy",
+    decoding = "async",
+} = Astro.props;
+
+// Handle different image source types
+let imageSrc: any = src;
+
+// If it's a local image in src/, we need to import it
+if (
+    src.startsWith("./") ||
+    src.startsWith("../") ||
+    (!src.startsWith("http") && !src.startsWith("/"))
+) {
+    // For now, we'll use the src as-is for local images
+    // In a real implementation, you'd import the image
+    imageSrc = src;
+} else if (src.startsWith("/")) {
+    // Public folder images
+    imageSrc = src;
+} else {
+    // Remote images
+    imageSrc = src;
+}
+---
+
+<Image
+    src={imageSrc}
+    alt={alt}
+    width={width}
+    height={height}
+    class={className}
+    loading={loading}
+    decoding={decoding}
+/>
+

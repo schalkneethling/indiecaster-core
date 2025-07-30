@@ -1,0 +1,122 @@
+# Artwork System Architecture
+
+## Overview
+IndieCaster uses a platform-agnostic artwork system that automatically selects the most appropriate artwork based on display context. The system is designed to make podcast management simple while supporting professional artwork across all platforms.
+
+## Core Architecture
+
+### Schema Structure
+The artwork system is defined in [src/content.config.ts](mdc:src/content.config.ts):
+```typescript
+artwork: z.object({
+  src: z.string(),
+  alt: z.string(),
+  podcast: z.object({
+    showCover: z.string().optional(),    // 3000x3000px for podcast platforms
+    episodeArt: z.string().optional(),   // 3000x3000px for individual episodes
+    heroImage: z.string().optional(),    // 4320x1080px for wide format displays
+  }).optional(),
+  legacy: z.object({                     // Backward compatibility
+    src: z.string(),
+    alt: z.string()
+  }).optional()
+})
+```
+
+### Utility Functions
+All artwork logic is centralized in [src/utils/artwork.js](mdc:src/utils/artwork.js):
+
+#### Core Functions
+- `getArtwork(artwork, context)` - Selects appropriate artwork for given context
+- `getArtworkWithFormat(artwork, context, format)` - Adds format optimization
+- `validatePodcastArtwork(artwork)` - Validates artwork specifications
+- `getRssArtwork(artwork)` - Optimized for RSS feed distribution
+- `getHomepageArtwork(artwork)` - Optimized for website display
+
+#### Context Types
+- `'show'` - Main show branding (uses `podcast.showCover`)
+- `'episode'` - Individual episodes (uses `podcast.episodeArt`)
+- `'hero'` - Wide format displays (uses `podcast.heroImage`)
+- `'card'` - Episode cards (episode art with fallback)
+- `'rss'` - RSS feed distribution
+- `'homepage'` - Website homepage
+
+## Component Integration
+
+### Episode Cards
+[src/components/CardEpisode.astro](mdc:src/components/CardEpisode.astro) uses:
+```astro
+const cardArtwork = getArtworkWithFormat(artwork, 'card', 'webp');
+```
+
+### Hero Player
+[src/components/DefaultHeroPlayer.astro](mdc:src/components/DefaultHeroPlayer.astro) uses:
+```astro
+const heroArtwork = getArtworkWithFormat(episode.artwork, 'hero', 'webp');
+```
+
+### Episode Layout
+[src/layouts/EpisodeLayout.astro](mdc:src/layouts/EpisodeLayout.astro) passes complete artwork object to child components.
+
+## File Organization
+
+### Naming Conventions
+- **Show Cover**: `{episode-slug}-show-cover.png`
+- **Episode Art**: `{episode-slug}-episode-art.png`
+- **Hero Image**: `{episode-slug}-hero-image.png`
+- **Web Format**: `{episode-slug}.webp`
+- **Fallback**: `{episode-slug}.png`
+
+### Directory Structure
+```
+public/episode-artwork/
+├── show-cover.png              # Main show cover (3000x3000)
+├── episode-1-show-cover.png    # Episode 1 show cover (3000x3000)
+├── episode-1-episode-art.png   # Episode 1 artwork (3000x3000)
+├── episode-1-hero-image.png    # Episode 1 hero (4320x1080)
+├── episode-1.webp              # Episode 1 web format
+├── episode-1.png               # Episode 1 fallback
+└── episode-default.webp        # Default artwork
+```
+
+## Platform Compatibility
+
+### Supported Platforms
+- **Apple Podcasts**: Full compatibility with all artwork types
+- **Spotify**: Supports episode artwork and show covers
+- **Google Podcasts**: Uses RSS feed artwork
+- **Other Platforms**: Works with any platform accepting standard podcast artwork
+
+### RSS Feed Integration
+The system automatically provides appropriate artwork for RSS feeds:
+- Uses episode-specific artwork when available
+- Falls back to show cover
+- Optimized for podcast platform distribution
+
+## Development Guidelines
+
+### Adding New Contexts
+1. Add context type to utility functions in [src/utils/artwork.js](mdc:src/utils/artwork.js)
+2. Update component usage
+3. Document in [docs/PODCAST-ARTWORK-INTEGRATION.md](mdc:docs/PODCAST-ARTWORK-INTEGRATION.md)
+
+### Backward Compatibility
+- Legacy `artwork.src` and `artwork.alt` fields are supported
+- New `artwork.podcast` object takes precedence
+- System gracefully falls back to legacy fields
+
+### Performance Features
+- **WebP Support**: Automatic format selection for better compression
+- **Lazy Loading**: Implemented in card components
+- **Responsive Design**: Context-aware artwork selection
+- **CDN Ready**: File structure supports CDN deployment
+
+## References
+- [docs/PODCAST-ARTWORK-GUIDE.md](mdc:docs/PODCAST-ARTWORK-GUIDE.md) - Complete specifications
+- [docs/PODCAST-ARTWORK-INTEGRATION.md](mdc:docs/PODCAST-ARTWORK-INTEGRATION.md) - Technical implementation
+- [docs/MEDIA-FILES-GUIDE.md](mdc:docs/MEDIA-FILES-GUIDE.md) - User guide
+- [src/content.config.ts](mdc:src/content.config.ts) - Schema definition
+description:
+globs:
+alwaysApply: false
+---

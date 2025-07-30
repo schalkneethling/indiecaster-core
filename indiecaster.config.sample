@@ -10,7 +10,8 @@ export const indieCasterConfig = {
   elevatorPitch:
     "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
   // <<-- END :: Your elevator pitch
-  // <<-- START :: Featured episode configuration
+  // <<-- START :: Featured episode configuration (OPTIONAL)
+  // Remove this entire section if you want to use the latest published episode instead
   featuredEpisodeGuestName: "Jane Springfield",
   featuredEpisodeGuestProfilePicture: "jane-springfield",
   featuredEpisodeTitle:
@@ -121,8 +122,8 @@ export const indieCasterConfig = {
     },
     {
       icon: "default-x",
-      name: "Twitter/X",
-      url: "https://twitter.com/",
+          name: "Social Media",
+    url: "https://social.example.com/",
     },
   ],
 };

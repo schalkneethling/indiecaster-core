@@ -18,3 +18,11 @@ const { metaDescription, metaPageTitle, podcastName } = Astro.props;
 <meta name="generator" content={Astro.generator} />
 <title>{metaPageTitle} - {podcastName}</title>
 <meta name="description" content={metaDescription} />
+
+<!-- RSS Feed Autodiscovery -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title={`${podcastName} RSS Feed`}
+  href={new URL("rss.xml", Astro.site)}
+/>

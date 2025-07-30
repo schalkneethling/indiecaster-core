@@ -1,0 +1,183 @@
+---
+import { getCollection, render } from "astro:content";
+import { indieCasterConfig } from "../../../indiecaster.config.js";
+
+import EpisodeLayout from "../../layouts/EpisodeLayout.astro";
+
+// Generate static paths for all published episodes
+export async function getStaticPaths() {
+  const episodes = await getCollection("episodes");
+  const publishedEpisodes = episodes.filter((episode) => !episode.data.draft);
+
+  return publishedEpisodes.map((episode) => ({
+    params: { slug: episode.slug },
+    props: { episode },
+  }));
+}
+
+// Get the episode from props
+const { episode } = Astro.props;
+
+// Render the episode content
+const { Content } = await render(episode);
+
+// Get podcast configuration
+const { podcastName } = indieCasterConfig;
+---
+
+<EpisodeLayout frontmatter={episode.data} entry={episode}>
+  <article class="episode-content">
+    <header class="episode-header">
+      <div class="episode-meta">
+        <time datetime={episode.data.pubDate.toISOString()}>
+          {
+            episode.data.pubDate.toLocaleDateString("en-US", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </time>
+        <span class="episode-duration">{episode.data.duration}</span>
+        {
+          episode.data.episodeNumber && (
+            <span class="episode-number">
+              Episode {episode.data.episodeNumber}
+            </span>
+          )
+        }
+      </div>
+
+      {
+        episode.data.tags && episode.data.tags.length > 0 && (
+          <div class="episode-tags">
+            {episode.data.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        )
+      }
+    </header>
+
+    <div class="episode-body">
+      <Content />
+    </div>
+
+    {
+      episode.data.showNotes && (
+        <section class="show-notes">
+          <h2>Show Notes</h2>
+          <p>{episode.data.showNotes}</p>
+        </section>
+      )
+    }
+  </article>
+</EpisodeLayout>
+
+<style>
+  .episode-content {
+    max-width: 100ch;
+    margin: 0 auto;
+    padding: var(--spacing-wide) 0;
+  }
+
+  .episode-header {
+    margin-bottom: var(--spacing-wide);
+  }
+
+  .episode-meta {
+    display: flex;
+    gap: var(--spacing-default);
+    align-items: center;
+    margin-bottom: var(--spacing-default);
+    font-size: var(--typography-size-small-medium);
+    color: var(--color-neutral-60);
+  }
+
+  .episode-duration {
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-neutral-20);
+    border-radius: var(--border-radius-small);
+  }
+
+  .episode-number {
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .episode-tags {
+    display: flex;
+    gap: var(--spacing-narrow);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 0.25rem 0.75rem;
+    background-color: var(--color-secondary-light);
+    color: var(--color-secondary-dark);
+    border-radius: var(--border-radius-pill);
+    font-size: var(--typography-size-small);
+    font-weight: 500;
+  }
+
+  .episode-body {
+    line-height: 1.6;
+    margin-bottom: var(--spacing-wide);
+  }
+
+  .episode-body h1,
+  .episode-body h2,
+  .episode-body h3 {
+    margin-top: var(--spacing-medium);
+    margin-bottom: var(--spacing-default);
+    color: var(--color-primary-dark);
+  }
+
+  .episode-body p {
+    margin-bottom: var(--spacing-default);
+  }
+
+  .episode-body ul,
+  .episode-body ol {
+    margin-bottom: var(--spacing-default);
+    padding-left: var(--spacing-medium);
+  }
+
+  .episode-body li {
+    margin-bottom: var(--spacing-narrow);
+  }
+
+  .show-notes,
+  .transcript {
+    margin-top: var(--spacing-wide);
+    padding-top: var(--spacing-wide);
+    border-top: 1px solid var(--color-neutral-30);
+  }
+
+  .show-notes h2,
+  .transcript h2 {
+    margin-bottom: var(--spacing-default);
+    color: var(--color-primary-dark);
+  }
+
+  .transcript-content {
+    background-color: var(--color-neutral-10);
+    padding: var(--spacing-medium);
+    border-radius: var(--border-radius-small);
+    font-family: var(--typography-font-mono);
+    font-size: var(--typography-size-small-medium);
+    line-height: 1.5;
+  }
+
+  @media only screen and (max-width: 47.9375rem) {
+    .episode-content {
+      padding: var(--spacing-medium) var(--spacing-default);
+    }
+
+    .episode-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--spacing-narrow);
+    }
+  }
+</style>

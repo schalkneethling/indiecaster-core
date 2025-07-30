@@ -1,0 +1,150 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { indieCasterConfig } from "../../indiecaster.config.js";
+
+const { podcastName, elevatorPitch, hostName } = indieCasterConfig;
+---
+
+<BaseLayout title={`About - ${podcastName}`}>
+  <main class="about-page">
+    <section class="hero">
+      <div class="container">
+        <h1>About {podcastName}</h1>
+        <p class="elevator-pitch">{elevatorPitch}</p>
+      </div>
+    </section>
+
+    <section class="host-info">
+      <div class="container">
+        <h2>Meet Your Host</h2>
+        <div class="host-profile">
+          <div class="host-image">
+            <img src="/profile-images/schalk-neethling@2x.avif" alt="{hostName}" />
+          </div>
+          <div class="host-details">
+            <h3>{hostName}</h3>
+            <p>Your host and guide through the world of early-stage web development. With years of experience in the tech industry, {hostName} brings insights, stories, and practical advice to help you navigate your development journey.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="mission">
+      <div class="container">
+        <h2>Our Mission</h2>
+        <p>We believe that every developer deserves access to quality mentorship, supportive communities, and practical guidance. Through this podcast, we aim to:</p>
+        <ul>
+          <li>Share real stories from developers at all stages of their careers</li>
+          <li>Connect you with mentors and teachers who can guide your growth</li>
+          <li>Highlight the communities that make learning and growing possible</li>
+          <li>Provide practical insights you can apply to your own development journey</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .about-page {
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+    padding: var(--spacing-wide) 0;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: var(--typography-size-xxlarge);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .elevator-pitch {
+    font-size: var(--typography-size-large);
+    max-width: 60ch;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-default);
+  }
+
+  .host-info,
+  .mission {
+    padding: var(--spacing-wide) 0;
+  }
+
+  .host-info {
+    background-color: var(--color-neutral-10);
+  }
+
+  .host-profile {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: var(--spacing-wide);
+    align-items: center;
+    margin-top: var(--spacing-medium);
+  }
+
+  .host-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius-large);
+  }
+
+  .host-details h3 {
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-default);
+  }
+
+  .mission h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .mission ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .mission li {
+    padding: var(--spacing-default) 0;
+    border-bottom: 1px solid var(--color-neutral-30);
+    position: relative;
+    padding-left: var(--spacing-medium);
+  }
+
+  .mission li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-weight: bold;
+  }
+
+  .mission li:last-child {
+    border-bottom: none;
+  }
+
+  @media only screen and (max-width: 47.9375rem) {
+    .host-profile {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .host-image {
+      max-width: 200px;
+      margin: 0 auto;
+    }
+
+    .elevator-pitch {
+      font-size: var(--typography-size-medium);
+    }
+  }
+</style> 

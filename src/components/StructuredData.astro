@@ -1,0 +1,82 @@
+---
+interface Props {
+    type: "podcast" | "episode";
+    data: {
+        // Podcast data
+        name?: string;
+        description?: string;
+        url?: string;
+        image?: string;
+        author?: string;
+        // Episode data
+        title?: string;
+        episodeNumber?: number;
+        season?: number;
+        duration?: string;
+        pubDate?: Date;
+        audioUrl?: string;
+        guests?: string[];
+        tags?: string[];
+    };
+}
+
+const { type, data } = Astro.props;
+
+// Generate structured data based on type
+let structuredData: any = {};
+
+if (type === "podcast") {
+    structuredData = {
+        "@context": "https://schema.org",
+        "@type": "Podcast",
+        name: data.name || "IndieCaster",
+        description:
+            data.description ||
+            "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
+        url: data.url || "https://indiecastor.com",
+        image:
+            data.image || "https://indiecastor.com/episode-artwork/default.png",
+        author: {
+            "@type": "Person",
+            name: data.author || "Bronwyn Fleurs",
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "IndieCaster",
+        },
+        inLanguage: "en-US",
+        genre: "Technology",
+        category: "Technology",
+    };
+} else if (type === "episode") {
+    structuredData = {
+        "@context": "https://schema.org",
+        "@type": "PodcastEpisode",
+        name: data.title,
+        description: data.description,
+        episodeNumber: data.episodeNumber,
+        seasonNumber: data.season,
+        duration: data.duration,
+        datePublished: data.pubDate?.toISOString(),
+        audio: {
+            "@type": "AudioObject",
+            url: data.audioUrl,
+            encodingFormat: "audio/mpeg",
+        },
+        partOfSeries: {
+            "@type": "PodcastSeries",
+            name: "IndieCaster",
+            url: "https://indiecastor.com",
+        },
+        author:
+            data.guests?.map((guest) => ({
+                "@type": "Person",
+                name: guest,
+            })) || [],
+        keywords: data.tags?.join(", ") || "",
+    };
+}
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+

@@ -1,6 +1,6 @@
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
-const options = Config.options;
+const options = indieCasterConfig;
 
 export const customProperties = {
   colorPrimaryColor: options.colorPrimaryColor,

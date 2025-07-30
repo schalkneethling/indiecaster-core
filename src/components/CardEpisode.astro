@@ -1,17 +1,22 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
+import { getArtworkWithFormat } from "../utils/artwork.js";
 
 const { episodeUrl, frontMatter } = Astro.props;
-const { description, episodeArtwork, pubDate, title } = frontMatter;
-const { colorPrimaryColorDark, colorSecondaryColorLight } = Config.options;
+const { description, artwork, pubDate, title } = frontMatter;
+const { colorPrimaryColorDark, colorSecondaryColorLight } = indieCasterConfig;
+
+// Get artwork for card context with WebP format for better performance
+const cardArtwork = getArtworkWithFormat(artwork, "card", "webp");
 ---
 
 <div class="episode-card-image">
   <img
-    src={`/episode-artwork/${episodeArtwork.src}.png`}
+    src={cardArtwork.src}
     height="200"
     width="300"
-    alt={episodeArtwork.alt || ""}
+    alt={cardArtwork.alt}
+    loading="lazy"
   />
 </div>
 <div class="episode-card-content">

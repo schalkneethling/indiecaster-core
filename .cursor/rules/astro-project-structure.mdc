@@ -1,0 +1,49 @@
+# IndieCaster Astro Project Structure
+
+## Key Files and Directories
+
+### Configuration
+- [astro.config.mjs](mdc:astro.config.mjs) - Astro configuration
+- [src/content.config.ts](mdc:src/content.config.ts) - Content collections schema
+- [package.json](mdc:package.json) - Dependencies and scripts
+
+### Content Management
+- `src/content/episodes/` - Episode markdown files
+- `src/content/guests/` - Guest markdown files
+- [docs/schemas.md](mdc:docs/schemas.md) - Schema documentation
+
+### Pages and Routing
+- [src/pages/index.astro](mdc:src/pages/index.astro) - Homepage
+- [src/pages/episodes.astro](mdc:src/pages/episodes.astro) - Episodes listing
+- [src/pages/episodes/[slug].astro](mdc:src/pages/episodes/[slug].astro) - Individual episode pages
+- [src/pages/about.astro](mdc:src/pages/about.astro) - About page
+- [src/pages/contact.astro](mdc:src/pages/contact.astro) - Contact page
+
+### Components
+- [src/components/](mdc:src/components/) - Reusable Astro components
+- [src/layouts/](mdc:src/layouts/) - Page layouts
+
+### Static Assets
+- `public/audio/episodes/` - Episode audio files
+- `public/episode-artwork/` - Episode artwork images
+- `public/profile-images/` - Guest profile pictures
+- `public/icons/` - UI icons and player controls
+
+### Styles
+- [src/styles/](mdc:src/styles/) - CSS files and design system
+- [src/styles/base.css](mdc:src/styles/base.css) - Base styles
+- [src/styles/custom-properties.css](mdc:src/styles/custom-properties.css) - CSS custom properties
+
+### Scripts
+- [scripts/create-episode.js](mdc:scripts/create-episode.js) - Episode generator
+- [scripts/create-guest.js](mdc:scripts/create-guest.js) - Guest generator
+
+## Development Workflow
+1. Use generator scripts for new content: `npm run create-episode` or `npm run create-guest`
+2. Follow schema definitions in [docs/schemas.md](mdc:docs/schemas.md)
+3. Add media files to appropriate `public/` directories
+4. Build and test with `npm run dev` and `npm run build`
+description:
+globs:
+alwaysApply: false
+---

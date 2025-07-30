@@ -1,0 +1,139 @@
+{
+  "$ref": "#/definitions/episodes",
+  "definitions": {
+    "episodes": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "pubDate": {
+          "anyOf": [
+            {
+              "type": "string",
+              "format": "date-time"
+            },
+            {
+              "type": "string",
+              "format": "date"
+            },
+            {
+              "type": "integer",
+              "format": "unix-time"
+            }
+          ]
+        },
+        "duration": {
+          "type": "string"
+        },
+        "audioFile": {
+          "type": "string"
+        },
+        "artwork": {
+          "type": "object",
+          "properties": {
+            "src": {
+              "type": "string"
+            },
+            "alt": {
+              "type": "string"
+            },
+            "podcast": {
+              "type": "object",
+              "properties": {
+                "showCover": {
+                  "type": "string"
+                },
+                "episodeArt": {
+                  "type": "string"
+                },
+                "heroImage": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
+            },
+            "legacy": {
+              "type": "object",
+              "properties": {
+                "src": {
+                  "type": "string"
+                },
+                "alt": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "src",
+                "alt"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "src",
+            "alt"
+          ],
+          "additionalProperties": false
+        },
+        "draft": {
+          "type": "boolean",
+          "default": false
+        },
+        "guests": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "tags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "youtube": {
+          "type": "string"
+        },
+        "explicit": {
+          "type": "boolean",
+          "default": false
+        },
+        "episodeNumber": {
+          "type": "number"
+        },
+        "season": {
+          "type": "number"
+        },
+        "showNotes": {
+          "type": "string"
+        },
+        "hasVttTranscript": {
+          "type": "boolean",
+          "default": false
+        },
+        "hasSrtTranscript": {
+          "type": "boolean",
+          "default": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "description",
+        "pubDate",
+        "duration",
+        "audioFile",
+        "artwork",
+        "showNotes"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

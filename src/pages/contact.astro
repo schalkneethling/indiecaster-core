@@ -1,0 +1,214 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { indieCasterConfig } from "../../indiecaster.config.js";
+
+const { podcastName, socialMedia } = indieCasterConfig;
+---
+
+<BaseLayout title={`Contact - ${podcastName}`}>
+  <main class="contact-page">
+    <section class="hero">
+      <div class="container">
+        <h1>Get in Touch</h1>
+        <p>We'd love to hear from you! Whether you have feedback, suggestions, or just want to say hello, we're here to connect.</p>
+      </div>
+    </section>
+
+    <section class="contact-content">
+      <div class="container">
+        <div class="contact-grid">
+          <div class="contact-info">
+            <h2>Connect With Us</h2>
+            <p>Follow us on social media for updates, behind-the-scenes content, and to join our community of developers.</p>
+            
+            <div class="social-links">
+              {socialMedia.map((social) => (
+                <a href={social.url} class="social-link" target="_blank" rel="noopener noreferrer">
+                  <img src={`/social-icon-packs/default/${social.icon.replace('default-', '')}.svg`} alt={social.name} />
+                  <span>{social.name}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <h2>Send us a Message</h2>
+            <form class="form">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required />
+              </div>
+              
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required />
+              </div>
+              
+              <div class="form-group">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject" required>
+                  <option value="">Select a topic</option>
+                  <option value="feedback">Feedback</option>
+                  <option value="suggestion">Episode Suggestion</option>
+                  <option value="guest">Guest Appearance</option>
+                  <option value="sponsorship">Sponsorship</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              
+              <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="5" required></textarea>
+              </div>
+              
+              <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .contact-page {
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+    color: white;
+    padding: var(--spacing-wide) 0;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: var(--typography-size-xxlarge);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .hero p {
+    font-size: var(--typography-size-large);
+    max-width: 60ch;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-default);
+  }
+
+  .contact-content {
+    padding: var(--spacing-wide) 0;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-wide);
+    margin-top: var(--spacing-medium);
+  }
+
+  .contact-info h2,
+  .contact-form h2 {
+    color: var(--color-primary-dark);
+    margin-bottom: var(--spacing-medium);
+  }
+
+  .social-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-default);
+    margin-top: var(--spacing-medium);
+  }
+
+  .social-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-default);
+    padding: var(--spacing-default);
+    background-color: var(--color-neutral-10);
+    border-radius: var(--border-radius-small);
+    text-decoration: none;
+    color: var(--color-primary-dark);
+    transition: all 0.2s ease;
+  }
+
+  .social-link:hover {
+    background-color: var(--color-secondary-light);
+    transform: translateY(-2px);
+  }
+
+  .social-link img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-medium);
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-narrow);
+  }
+
+  .form-group label {
+    font-weight: 600;
+    color: var(--color-primary-dark);
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: var(--spacing-default);
+    border: 2px solid var(--color-neutral-30);
+    border-radius: var(--border-radius-small);
+    font-size: var(--typography-size-medium);
+    transition: border-color 0.2s ease;
+  }
+
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--color-secondary);
+  }
+
+  .submit-btn {
+    background-color: var(--color-secondary);
+    color: var(--color-secondary-dark);
+    padding: var(--spacing-default) var(--spacing-medium);
+    border: none;
+    border-radius: var(--border-radius-small);
+    font-size: var(--typography-size-medium);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .submit-btn:hover {
+    background-color: var(--color-secondary-dark);
+    color: var(--color-secondary-light);
+  }
+
+  @media only screen and (max-width: 47.9375rem) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-medium);
+    }
+
+    .social-links {
+      grid-template-columns: 1fr;
+    }
+
+    .hero p {
+      font-size: var(--typography-size-medium);
+    }
+  }
+</style> 

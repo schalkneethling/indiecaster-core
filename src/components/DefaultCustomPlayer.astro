@@ -1,7 +1,7 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
-const { featuredEpisodeTrack, colorSecondaryColor } = Config.options;
+const { featuredEpisodeTrack, colorSecondaryColor } = indieCasterConfig;
 
 let { episode } = Astro.props;
 

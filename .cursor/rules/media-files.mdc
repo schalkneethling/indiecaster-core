@@ -1,0 +1,81 @@
+# Media Files Guidelines
+
+## Overview
+IndieCaster uses a platform-agnostic artwork system designed to make podcast management simple for indie podcasters. Start with essentials and add more artwork as your podcast grows.
+
+## Essential Files (Start Here)
+
+### Show Cover (Required)
+**Location**: `public/episode-artwork/show-cover.png`
+- **Size**: 3000x3000 pixels (square)
+- **Format**: PNG or JPEG
+- **File Size**: Under 500KB
+- **Usage**: Main visual identity for your podcast across all platforms
+
+### Episode Audio Files
+**Location**: `public/audio/episodes/`
+- **Format**: MP3 only
+- **Quality**: 128kbps minimum, 320kbps preferred
+- **Naming**: Use descriptive filenames (e.g., `episode-1-guest-interview.mp3`)
+
+### Guest Profile Pictures
+**Location**: `public/profile-images/`
+- **Size**: 400x400 pixels (square)
+- **Format**: WebP (preferred) or PNG
+- **Naming**: Use guest names (e.g., `jane-springfield.webp`)
+
+## Optional Artwork (Add When Ready)
+
+### Episode-Specific Artwork
+**Location**: `public/episode-artwork/{episode-slug}-episode-art.png`
+- **Size**: 3000x3000 pixels (square)
+- **Format**: PNG or JPEG
+- **File Size**: Under 500KB
+- **When to use**: Guest with recognizable face, specific topic, enhanced discoverability
+
+### Hero Image for Homepage
+**Location**: `public/episode-artwork/hero-image.png`
+- **Size**: 4320x1080 pixels (wide rectangle)
+- **Format**: PNG or JPEG
+- **File Size**: Under 500KB
+- **When to use**: Dramatic homepage banner, wide format display
+
+## Artwork System Integration
+
+The IndieCaster artwork system automatically selects appropriate artwork based on context:
+- **Show Context**: Uses `podcast.showCover` for main branding
+- **Episode Context**: Uses `podcast.episodeArt` for individual episodes
+- **Hero Context**: Uses `podcast.heroImage` for wide format displays
+- **Card Context**: Uses episode art with fallback to show cover
+- **RSS Context**: Optimized for podcast platform distribution
+- **Homepage Context**: Optimized for website display
+
+## File Organization
+```
+public/
+├── episode-artwork/
+│   ├── show-cover.png              # Main podcast artwork
+│   ├── episode-1-episode-art.png   # Optional episode-specific art
+│   └── hero-image.png              # Optional homepage banner
+├── audio/
+│   └── episodes/
+│       ├── episode-1.mp3
+│       └── episode-2.mp3
+└── profile-images/
+    ├── guest-1.webp
+    └── guest-2.webp
+```
+
+## Technical Requirements
+- **No transparency**: Use solid backgrounds
+- **RGB color space**: Not CMYK
+- **Under 500KB**: For fast loading
+- **Square format**: 3000x3000px for show covers
+- **No platform logos**: Don't include Apple, Spotify, etc.
+- **No episode numbers**: Keep artwork timeless
+
+## References
+- [docs/MEDIA-FILES-GUIDE.md](mdc:docs/MEDIA-FILES-GUIDE.md) - Complete media files guide
+- [docs/PODCAST-ARTWORK-GUIDE.md](mdc:docs/PODCAST-ARTWORK-GUIDE.md) - Artwork specifications
+- [docs/PODCAST-ARTWORK-INTEGRATION.md](mdc:docs/PODCAST-ARTWORK-INTEGRATION.md) - Technical implementation
+- [src/utils/artwork.js](mdc:src/utils/artwork.js) - Artwork utility functions

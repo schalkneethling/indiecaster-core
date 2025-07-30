@@ -9,14 +9,13 @@ const {
 ---
 
 <picture>
-  <source srcset={`${pictureSrc}@2x.avif`} type="image/avif" />
-  <source srcset={`${pictureSrc}@2x.webp`} type="image/webp" />
+  <source srcset={`${pictureSrc}.avif`} type="image/avif" />
   <img
     alt={alt}
     class="hero-image"
     width={width}
     height={height}
     loading={loading}
-    src={`${pictureSrc}.png`}
+    src={`${pictureSrc}.webp`}
   />
 </picture>

@@ -1,0 +1,26 @@
+# Documentation Standards
+
+## Single Source of Truth for Schemas
+
+All content collection schemas must be defined in [docs/schemas.md](mdc:docs/schemas.md). Never duplicate schema definitions in other documentation files.
+
+### Schema References
+- **Episodes Collection**: See [docs/schemas.md](mdc:docs/schemas.md) for complete episode schema
+- **Guests Collection**: See [docs/schemas.md](mdc:docs/schemas.md) for complete guest schema
+- **Media Files**: See [docs/schemas.md](mdc:docs/schemas.md) for media file requirements
+
+### Documentation Structure
+- [docs/index.md](mdc:docs/index.md) - High-level overview and quick start
+- [docs/schemas.md](mdc:docs/schemas.md) - Single source of truth for all schemas
+- [docs/content-collections-user-guide.md](mdc:docs/content-collections-user-guide.md) - Usage instructions
+- [docs/content-collections-implementation.md](mdc:docs/content-collections-implementation.md) - Technical details
+
+### Rules
+1. **Never duplicate schema definitions** - Always link to [docs/schemas.md](mdc:docs/schemas.md)
+2. **Update schemas in one place** - Only modify [docs/schemas.md](mdc:docs/schemas.md) for schema changes
+3. **Keep implementation in sync** - Ensure [src/content.config.ts](mdc:src/content.config.ts) matches schema documentation
+4. **Use cross-references** - Link between documentation files instead of duplicating content
+description:
+globs:
+alwaysApply: false
+---

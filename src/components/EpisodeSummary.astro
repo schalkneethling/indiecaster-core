@@ -1,25 +1,34 @@
 ---
-import Config from "virtual:indiecaster/config";
+import type { CollectionEntry } from "astro:content";
 
 import ButtonPrimary from "./ButtonPrimary.astro";
 import EpisodeProfilesFeatured from "./EpisodeProfilesFeatured.astro";
 
-const { showCta } = Astro.props;
-const { featuredEpisodeTitle, featuredEpisodeSummary, featuredEpisodeURL } =
-  Config.options;
+interface Props {
+  episode?: CollectionEntry<"episodes">;
+  showCta?: boolean;
+}
+
+const { episode, showCta = true } = Astro.props;
+
+// Use episode data directly (featured episode is handled at page level)
+const episodeTitle = episode?.data.title || "No episode available";
+const episodeSummary =
+  episode?.data.description || "No episode description available";
+const episodeURL = episode?.slug || "#";
 ---
 
 <article class="featured-episode-summary base-container-padding">
-  <h2 class="featured-episode-summary-heading">{featuredEpisodeTitle}</h2>
-  <EpisodeProfilesFeatured />
-  <p class="featured-episode-summary-text">{featuredEpisodeSummary}</p>
+  <h2 class="featured-episode-summary-heading">{episodeTitle}</h2>
+  <EpisodeProfilesFeatured episode={episode} />
+  <p class="featured-episode-summary-text">{episodeSummary}</p>
   {
     showCta && (
       <ButtonPrimary
         centred={true}
         label="Episode Details"
         type="link"
-        url={`/episodes/${featuredEpisodeURL}`}
+        url={`/episodes/${episodeURL}`}
       />
     )
   }

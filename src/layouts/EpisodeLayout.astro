@@ -1,5 +1,5 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
 import AnnounceBar from "../components/AnnounceBar.astro";
 import EpisodeProfiles from "../components/EpisodeProfiles.astro";
@@ -9,18 +9,35 @@ import HeadDefault from "../components/HeadDefault.astro";
 import DefaultHeroPlayer from "../components/DefaultHeroPlayer.astro";
 import MetaIcons from "../components/MetaIcons.astro";
 import OpenGraph from "../components/OpenGraph.astro";
+import StructuredData from "../components/StructuredData.astro";
 import Subscribe from "../components/Subscribe.astro";
 import ThemeProvider from "../components/ThemeProvider.astro";
 import Youtube from "../components/Youtube.astro";
 
-const { frontmatter } = Astro.props;
+const { frontmatter, entry } = Astro.props;
 const showAnnounceBar = import.meta.env.ANNOUNCEBAR_ENABLED === "true";
-const { metaLanguage, podcastName } = Config.options;
-const { description, title, youtube } = frontmatter;
+const { metaLanguage, podcastName } = indieCasterConfig;
+const {
+  description,
+  title,
+  youtube,
+  artwork,
+  pubDate,
+  duration,
+  episodeNumber,
+  season,
+  guests,
+  tags,
+  audioFile,
+} = frontmatter;
 const episode = {
-  artwork: frontmatter.episodeArtwork.src,
-  url: frontmatter.episodeAudio,
+  artwork: artwork, // Pass the complete artwork object
+  url: frontmatter.audioFile,
 };
+
+// Generate episode URL
+const episodeUrl = `https://${indieCasterConfig.domain}/episodes/${entry.slug}/`;
+const audioUrl = `https://${indieCasterConfig.domain}/audio/episodes/${audioFile}.mp3`;
 ---
 
 <!doctype html>
@@ -31,8 +48,27 @@ const episode = {
       metaPageTitle={title}
       podcastName={podcastName}
     />
-    <OpenGraph />
+    <OpenGraph
+      title={title}
+      description={description}
+      url={episodeUrl}
+      type="music.song"
+    />
     <MetaIcons />
+    <StructuredData
+      type="episode"
+      data={{
+        title,
+        description,
+        episodeNumber,
+        season,
+        duration,
+        pubDate,
+        audioUrl,
+        guests,
+        tags,
+      }}
+    />
   </head>
   <body class="episode-page">
     <ThemeProvider>
@@ -41,7 +77,7 @@ const episode = {
       <main class="girdle episode-content-container">
         <DefaultHeroPlayer episode={episode} />
         <h1>{title}</h1>
-        <EpisodeProfiles frontMatter={frontmatter} />
+        <EpisodeProfiles episode={Astro.props.entry} />
         {
           youtube && (
             <Youtube

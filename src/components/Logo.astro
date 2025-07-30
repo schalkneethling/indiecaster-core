@@ -1,7 +1,7 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
-const { logo, logoHeight, logoWidth, podcastName } = Config.options;
+const { logo, logoHeight, logoWidth, podcastName } = indieCasterConfig;
 const logoHeightMobile = `${parseInt(logoHeight, 10) / 2}px`;
 const logoWidthMobile = `${parseInt(logoWidth, 10) / 2}px`;
 const logoHeightSmallDesktop = `${parseInt(logoHeight, 10) / 1.5}px`;

@@ -1,94 +1,93 @@
 # IndieCaster
 
-## 🚀 Project Structure
+A modern podcast website built with Astro, featuring content collections for easy episode and guest management.
+
+## 🚀 Quick Start
+
+### Adding a New Episode
+
+**Option 1: Using the Generator Script (Recommended)**
+```bash
+npm run create-episode "Your Episode Title"
+```
+
+**Option 2: Manual Creation**
+1. Create a new Markdown file in `src/content/episodes/`
+2. Use the filename format: `episode-title.md` (this becomes the URL slug)
+3. Add the required frontmatter (see [Schema Reference](./schemas.md))
+4. Write your episode content below the frontmatter
+
+### Adding a New Guest
+
+**Option 1: Using the Generator Script (Recommended)**
+```bash
+npm run create-guest "Guest Full Name"
+```
+
+**Option 2: Manual Creation**
+1. Create a new Markdown file in `src/content/guests/`
+2. Use the filename format: `guest-name.md` (this becomes the guest ID)
+3. Add the required frontmatter (see [Schema Reference](./schemas.md))
+4. Write the guest's detailed bio below the frontmatter
+
+## 📚 Documentation
+
+- **[Schema Reference](./schemas.md)** - Complete schema definitions for episodes and guests
+- **[Content Collections User Guide](./content-collections-user-guide.md)** - Detailed guide for content management
+- **[Media Files Guide](./MEDIA-FILES-GUIDE.md)** - Media file requirements and setup
+- **[Content Collections Implementation](./content-collections-implementation.md)** - Technical implementation details
+- **[Current Status](./CURRENT-STATUS.md)** - Project status and known issues
+- **[Implementation Summary](./IMPLEMENTATION-SUMMARY.md)** - Overview of implemented features
+
+## 🏗️ Project Structure
 
 ```text
 /
 ├── public/
-│   ├── episode-artwork/
-│   ├── profile-images/
-│   ├── favicon.ico
+│   ├── audio/episodes/          # Episode audio files
+│   ├── episode-artwork/         # Episode artwork images
+│   ├── profile-images/          # Guest profile pictures
+│   └── favicon.ico
 ├── src/
-│   └── pages/
-│       └── index.astro
+│   ├── content/
+│   │   ├── episodes/            # Episode markdown files
+│   │   └── guests/              # Guest markdown files
+│   ├── pages/
+│   │   ├── episodes/
+│   │   │   └── [slug].astro     # Individual episode pages
+│   │   ├── episodes.astro       # Episodes listing
+│   │   └── index.astro          # Homepage
+│   └── components/              # Reusable components
 └── package.json
 ```
 
-## Adding a new episode
+## 🎯 Key Features
 
-To add a new episode, create a new markdown file in the `src/pages/episodes` directory.
+- **Content Collections**: Type-safe episode and guest management
+- **Automatic Routing**: Episode pages generated from markdown files
+- **Media Optimization**: Multiple image formats for performance
+- **SEO Optimized**: Meta tags, structured data, and sitemaps
+- **Responsive Design**: Works on all devices
+- **Accessibility**: WCAG compliant components
 
-### The filename
+## 🔧 Development
 
-The name of the file will be the URL slug for the episode. For example, `src/pages/episodes/mic-check-the-independence-edition.md` will be available at `https://your-site.com/episodes/mic-check-the-independence-edition`.
+```bash
+# Install dependencies
+npm install
 
-### The frontmatter
+# Start development server
+npm run dev
 
-The file should have the following frontmatter (meta data):
+# Build for production
+npm run build
 
-```markdown
----
-layout: "../../layouts/EpisodeLayout.astro"
-title: "Mic Check: The Independence Edition"
-pubDate: January 22, 2025
-description: "Adrienne Lowe dives into a candid chat with Kai Simmons about the triumphs and trials of independent podcasting in a world dominated by media giants."
-host: "Schalk Neethling"
-hostProfilePicture: "schalk-neethling"
-guest: "Jane Springfield"
-guestProfilePicture: "jane-springfield"
-episodeArtwork:
-  src: "episode003"
-  alt: ""
-episodeAudio: "promo"
-tags: ["indie", "indie podcasters", "indiecaster", promo]
----
+# Preview production build
+npm run preview
 ```
 
-The `layout` property will always be as in the example unless have nested the episode inside a sub folder. For every level you nest the episode inside, you need to add an additional `../` to the `layout` property.
+## 📝 Content Management
 
-Use the `title` property to set the episode title. This will be used as the primary heading and the title shown in the browser tab.
+For detailed information about creating and managing content, see the [Content Collections User Guide](./content-collections-user-guide.md).
 
-The `pubDate` property is the date the episode was published. This will be used to sort episodes on the episode list.
-
-The `description` property is a short description of the episode. This will be used as the meta description and shown on the episode list and by search engines. You can use a tool such as [HuggingFace Chat](https://huggingface.co/chat/) along with a prompt similar to the following to get a description for your episode:
-
-```text
-Please write a meta description for the following content. Limit the description to 160 characters and ensure it is SEO-optimized:
-```
-
-The `host` property is the name of the host for the episode. The same apply for the `guest` property.
-
-The `hostProfilePicture` and `guestProfilePicture` property is the filename of the host and guest's profile picture. This should be a square image and should be placed in the `public/profile-images` directory. For performance optimisation IndieCaster uses a component that expects three version of the profile image.
-
-1. A 400x400px image using the AVIF format.
-2. A 400x400px image using the WebP format.
-3. A 200x200px image using the PNG format.
-
-When specifying the filename do not include the file extension. For example, if the host's profile picture is `schalk-neethling.png`, the `hostProfilePicture` property should be `schalk-neethling`.
-
-#### Helpful note
-
-With a 400x400px PNG image, you can use a service like [Squoosh](https://squoosh.app/) to convert the image to AVIF and WebP formats. When saving the AVIF and WebP files, ensure that you add `@2x` to the filename. For example, if the original PNG image is `schalk-neethling.png`, the AVIF and WebP files should be `schalk-neethling@2x.avif`.
-
-> NOTE: There is no need to include the `@2x` in the profile picture property. The component will automatically add it when it looks for the image.
-
-You can also resize the image to 200x200px using Squoosh for the final PNG image. You can then use a service like [TinyPNG](https://tinypng.com/) to optimise the filesize of the PNG image.
-
-The `episodeArtwork` property is an object with `src` and `alt` properties. The `src` property is the filename of the episode artwork. This should be a square image and should be placed in the `public/episode-artwork` directory. The `alt` property is the alt text for the image. Generally you can leave this as an empty string as the image is purely decorative however, if the image contains text, you should include the text in the `alt` property.
-
-Below are some resources to learn about creating the ultimate podcast artwork:
-
-- [Artwork requirement for Apple Podcasts](https://podcasters.apple.com/support/896-artwork-requirements)
-- [Spotify do's and dont's of podcast artwork](https://podcasters.spotify.com/resources/learn/create/dos-donts-coverart)
-
-> NOTE: For the episode artwork, you can use a service like [Canva](https://www.canva.com/) to create the artwork. The same file formats apply as for the profile pictures. We have had great results using a `2048x2048px` size for the AVIF and WebP formats and a `1024x1024px` size for the PNG format.
-
-The `episodeAudio` property is the filename of the episode audio. This should be an MP3 file and should be placed in the `public/audio` directory. The filename should not include the file extension. For example, if the episode audio is `promo.mp3`, the `episodeAudio` property should be `promo`.
-
-The `tags` property is an array of tags for the episode. These tags will be used to filter episodes on the relevant tag page.
-
-The `youtube` property is the YouTube video ID for the episode. This should be the ID from the URL of the video. For example, if the URL of the video is `https://www.youtube.com/watch?v=spL72oeLiVo`, the `youtube` property should be `spL72oeLiVo`. If not set, the YouTube video will not be displayed on the episode page.
-
-### The content
-
-After the frontmatter, you can add the episode content. This can be written in Markdown.
+For complete schema definitions and field requirements, see the [Schema Reference](./schemas.md).

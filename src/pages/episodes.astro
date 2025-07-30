@@ -1,5 +1,6 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
+import { getCollection } from "astro:content";
 
 import BaseLayout from "../layouts/BaseLayout.astro";
 import CardEpisode from "../components/CardEpisode.astro";
@@ -11,8 +12,15 @@ const {
   episodesListingLead,
   metaDefaultDescription,
   podcastName,
-} = Config.options;
-const allEpisodes = await Astro.glob("../pages/episodes/*.md");
+} = indieCasterConfig;
+
+// Get all published episodes from content collections and sort by publication date
+const allEpisodes = await getCollection("episodes");
+const publishedEpisodes = allEpisodes.filter((episode) => !episode.data.draft);
+const sortedEpisodes = publishedEpisodes.sort(
+  (a, b) =>
+    new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime(),
+);
 ---
 
 <BaseLayout
@@ -27,11 +35,11 @@ const allEpisodes = await Astro.glob("../pages/episodes/*.md");
       </header>
       <ul class="reset-list episodes-list">
         {
-          allEpisodes.map((episode) => (
+          sortedEpisodes.map((episode) => (
             <li class="episode">
               <CardEpisode
-                episodeUrl={episode.url}
-                frontMatter={episode.frontmatter}
+                episodeUrl={`/episodes/${episode.slug}`}
+                frontMatter={episode.data}
               />
             </li>
           ))

@@ -1,12 +1,34 @@
 import { defineConfig } from "astro/config";
-
-import IndieCaster from "./integration/indiecaster.js";
-import { indieCasterConfig } from "./indiecaster.config.js";
+import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://indiecastor.com',
+  output: 'static', // Explicitly set output mode to static
+  integrations: [sitemap()],
+  image: {
+    // Enable Sharp-based image optimization
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+      config: {
+        limitInputPixels: false, // Allow processing large images
+      },
+    },
+    // Configure responsive image behavior
+    layout: 'constrained',
+    // Allow remote image optimization for podcast platforms
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.amazonaws.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.cloudinary.com',
+      },
+    ],
+  },
   devToolbar: {
     enabled: false,
   },
-  integrations: [IndieCaster(indieCasterConfig)],
 });

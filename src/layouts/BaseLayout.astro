@@ -1,5 +1,5 @@
 ---
-import Config from "virtual:indiecaster/config";
+import { indieCasterConfig } from "../../indiecaster.config.js";
 
 import AnnounceBar from "../components/AnnounceBar.astro";
 import DefaultCustomPlayer from "../components/DefaultCustomPlayer.astro";
@@ -8,6 +8,8 @@ import Header from "../components/Header.astro";
 import HeadDefault from "../components/HeadDefault.astro";
 import MetaIcons from "../components/MetaIcons.astro";
 import OpenGraph from "../components/OpenGraph.astro";
+import PerformanceOptimization from "../components/PerformanceOptimization.astro";
+import StructuredData from "../components/StructuredData.astro";
 
 interface Props {
   metaDescription: string;
@@ -16,12 +18,17 @@ interface Props {
 
 const { metaDescription, metaPageTitle } = Astro.props;
 const showAnnounceBar = import.meta.env.ANNOUNCEBAR_ENABLED === "true";
-const { metaLanguage, podcastName } = Config.options;
+const { metaLanguage, podcastName } = indieCasterConfig;
 ---
 
 <!doctype html>
 <html lang={metaLanguage}>
   <head>
+    <PerformanceOptimization
+      preloadImages={["/logo.svg", "/favicon.svg"]}
+      dnsPrefetch={["https://www.youtube.com", "https://open.spotify.com"]}
+      preconnect={["https://www.youtube.com", "https://open.spotify.com"]}
+    />
     <HeadDefault
       metaDescription={metaDescription}
       metaPageTitle={metaPageTitle}
@@ -29,6 +36,15 @@ const { metaLanguage, podcastName } = Config.options;
     />
     <OpenGraph />
     <MetaIcons />
+    <StructuredData
+      type="podcast"
+      data={{
+        name: podcastName,
+        description: indieCasterConfig.elevatorPitch,
+        url: `https://${indieCasterConfig.domain}`,
+        author: indieCasterConfig.hostName,
+      }}
+    />
   </head>
   <body>
     {showAnnounceBar && <AnnounceBar />}
@@ -36,5 +52,21 @@ const { metaLanguage, podcastName } = Config.options;
     <Header />
     <slot />
     <Footer />
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker
+            .register("/sw.js")
+            .then((registration) => {
+              console.log("SW registered: ", registration);
+            })
+            .catch((registrationError) => {
+              console.log("SW registration failed: ", registrationError);
+            });
+        });
+      }
+    </script>
   </body>
 </html>
