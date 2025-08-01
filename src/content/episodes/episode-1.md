@@ -7,6 +7,7 @@ audioFile: "getting-started-podcast"
 artwork:
   src: "episode-1-artwork"
   alt: "Getting Started with Your First Podcast artwork"
+hosts: ["main-host"]
 guests: ["jane-springfield"]
 tags: ["podcasting", "getting started", "content creation", "audio production"]
 youtube: "dQw4w9WgXcQ"

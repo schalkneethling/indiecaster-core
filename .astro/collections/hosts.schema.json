@@ -1,0 +1,55 @@
+{
+  "$ref": "#/definitions/hosts",
+  "definitions": {
+    "hosts": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "bio": {
+          "type": "string"
+        },
+        "profilePicture": {
+          "type": "string"
+        },
+        "socialLinks": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "website": {
+          "type": "string",
+          "format": "uri"
+        },
+        "company": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "episodes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "isMainHost": {
+          "type": "boolean",
+          "default": false
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "bio",
+        "profilePicture"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

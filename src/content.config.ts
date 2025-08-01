@@ -25,6 +25,7 @@ const episodes = defineCollection({
       }).optional()
     }),
     draft: z.boolean().default(false),
+    hosts: z.array(z.string()).default(["main-host"]), // References to host slugs, defaults to main host
     guests: z.array(z.string()).optional(),
     tags: z.array(z.string()).optional(),
     youtube: z.string().optional(),
@@ -34,6 +35,22 @@ const episodes = defineCollection({
     showNotes: z.string(),
     hasVttTranscript: z.boolean().default(false),
     hasSrtTranscript: z.boolean().default(false)
+  })
+});
+
+// Define the hosts collection schema
+const hosts = defineCollection({
+  type: 'content',
+  schema: z.object({
+    name: z.string(),
+    bio: z.string(),
+    profilePicture: z.string(),
+    socialLinks: z.record(z.string()).optional(),
+    website: z.string().url().optional(),
+    company: z.string().optional(),
+    title: z.string().optional(),
+    episodes: z.array(z.string()).optional(), // References to episode slugs
+    isMainHost: z.boolean().default(false) // Flag to identify the main host for backward compatibility
   })
 });
 
@@ -53,4 +70,4 @@ const guests = defineCollection({
 });
 
 // Export the collections
-export const collections = { episodes, guests }; 
+export const collections = { episodes, hosts, guests }; 

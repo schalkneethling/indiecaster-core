@@ -33,6 +33,7 @@ This document serves as the single source of truth for all content collection sc
 | `explicit` | Boolean | `false` | Whether episode contains explicit content | `false` |
 | `episodeNumber` | Number | - | Episode number in series | `1` |
 | `season` | Number | - | Season number | `1` |
+| `hosts` | Array[String] | `["main-host"]` | References to host slugs | `["main-host", "co-host"]` |
 | `hasVttTranscript` | Boolean | `false` | Whether VTT transcript exists | `true` |
 | `hasSrtTranscript` | Boolean | `false` | Whether SRT transcript exists | `true` |
 
@@ -53,6 +54,7 @@ artwork:
     episodeArt: "episode-1-art" # 3000x3000px for individual episodes
     heroImage: "hero-image" # 4320x1080px for wide format displays
 showNotes: "Learn the fundamentals of starting your own podcast from planning to publishing."
+hosts: ["main-host"]
 guests: ["jane-springfield"]
 tags: ["podcasting", "getting started", "content creation", "audio production"]
 youtube: "dQw4w9WgXcQ"
@@ -100,6 +102,48 @@ social:
   github: "janespringfield"
   website: "https://janespringfield.com"
 episodes: ["episode-1"]
+---
+```
+
+## Hosts Collection Schema
+
+**File**: `src/content/hosts/*.md`
+
+### Required Fields
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `name` | String | Host's full name | `"John Smith"` |
+| `bio` | String | Host's biography | `"John is a podcast host with over 5 years..."` |
+| `profilePicture` | String | Profile image filename (without extension) | `"john-smith"` |
+
+### Optional Fields
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `socialLinks` | Object | Social media links | `{"twitter": "https://twitter.com/john", "linkedin": "https://linkedin.com/in/john"}` |
+| `website` | String | Personal website URL | `"https://johnsmith.com"` |
+| `company` | String | Company name | `"TechCorp"` |
+| `title` | String | Job title | `"Podcast Host"` |
+| `episodes` | Array[String] | References to episode slugs | `["episode-1", "episode-3"]` |
+| `isMainHost` | Boolean | `false` | Whether this is the main host | `true` |
+
+### Example Frontmatter
+
+```yaml
+---
+name: "John Smith"
+bio: "John Smith is a podcast host and creator passionate about sharing knowledge and connecting with listeners. He has been hosting podcasts for over 5 years and loves interviewing interesting guests."
+profilePicture: "john-smith"
+socialLinks:
+  twitter: "https://twitter.com/johnsmith"
+  linkedin: "https://linkedin.com/in/johnsmith"
+  instagram: "https://instagram.com/johnsmith"
+website: "https://johnsmith.com"
+company: "Independent Creator"
+title: "Podcast Host"
+episodes: ["episode-1", "episode-2"]
+isMainHost: true
 ---
 ```
 
