@@ -187,15 +187,15 @@ async function initPodcast() {
   // <<-- END :: Featured episode configuration`;
     }
 
+    // Read the current config file first
+    const configPath = path.join(__dirname, '..', 'indiecaster.config.js');
+    let configContent = fs.readFileSync(configPath, 'utf8');
+
     // Configure podcast players
     const podcastPlayers = await configurePodcastPlayers(configContent);
     
     // Configure social media
     const socialMedia = await configureSocialMedia(configContent);
-
-    // Read the current config file
-    const configPath = path.join(__dirname, '..', 'indiecaster.config.js');
-    let configContent = fs.readFileSync(configPath, 'utf8');
 
     // Update the config with user input
     configContent = configContent.replace(
