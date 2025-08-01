@@ -8,8 +8,8 @@ This guide will walk you through setting up your podcast website using the Indie
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd mhit-web
+git clone https://github.com/schalkneethling/indiecaster-core.git <your-podcast-name>
+cd <your-podcast-name>
 
 # Install dependencies
 npm install
@@ -17,21 +17,10 @@ npm install
 
 ### 2. Configure Your Podcast
 
-Edit `indiecaster.config.js` with your podcast details:
+Run the following command in your terminal and follow the prompts:
 
-```javascript
-export const indieCasterConfig = {
-  // Update these essential settings
-  domain: "mypodcast.com", // Your actual domain
-  elevatorPitch: "My Awesome Podcast - A show about [your topic]",
-  hostName: "Your Real Name",
-  hostProfilePicture: "your-actual-profile-picture",
-  
-  // Optional: Configure a featured episode
-  featuredEpisodeTitle: "Your Episode Title",
-  featuredEpisodeSummary: "Your episode description...",
-  // ... other settings
-};
+```bash
+npm run init-podcast
 ```
 
 ### 3. Add Your Content
