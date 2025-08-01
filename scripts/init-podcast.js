@@ -211,12 +211,12 @@ async function initPodcast() {
     );
 
     configContent = configContent.replace(
-      /hostName: "Your Name"/,
+      /hostName: "\[YOUR_NAME\]"/,
       `hostName: "${hostName}"`
     );
 
     configContent = configContent.replace(
-      /hostProfilePicture: "your-profile-picture"/,
+      /hostProfilePicture: "\[YOUR_PROFILE_PICTURE\]"/,
       `hostProfilePicture: "${hostName.toLowerCase().replace(/\s+/g, '-')}"`
     );
 
