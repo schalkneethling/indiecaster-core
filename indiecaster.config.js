@@ -1,32 +1,41 @@
 export const indieCasterConfig = {
-  colorPrimaryColor: "#1c1c44",
-  colorPrimaryColorDark: "#090913",
-  colorPrimaryColorLight: "#f6f6ff",
-  colorSecondaryColor: "#dab97e",
-  colorSecondaryColorDark: "#38290d",
-  colorSecondaryColorLight: "#fff1d7",
-  domain: "indiecastor.com",
+  // Brand Colors - Customize these to match your podcast's branding
+  colorPrimaryColor: "#1c1c44",      // Main brand color
+  colorPrimaryColorDark: "#090913",   // Dark variant for backgrounds
+  colorPrimaryColorLight: "#f6f6ff",  // Light variant for text on dark backgrounds
+  colorSecondaryColor: "#dab97e",     // Accent color
+  colorSecondaryColorDark: "#38290d", // Dark accent variant
+  colorSecondaryColorLight: "#fff1d7", // Light accent variant
+  
+  // Site Configuration
+  domain: "[YOUR_DOMAIN]", // Your website domain (e.g., "mypodcast.com")
   // <<-- START :: Your elevator pitch
   elevatorPitch:
-    "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
+    "The IndieCaster Podcast - A show about independent podcasting, content creation, and building your audience from the ground up.",
   // <<-- END :: Your elevator pitch
-  // <<-- START :: Featured episode configuration
+  // <<-- START :: Featured episode configuration (OPTIONAL)
+  // Remove this entire section if you want to use the latest published episode instead
   featuredEpisodeGuestName: "Jane Springfield",
   featuredEpisodeGuestProfilePicture: "jane-springfield",
   featuredEpisodeTitle:
-    "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance",
+    "Getting Started with Your First Podcast",
   featuredEpisodeSummary:
-    "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry. Chad discusses his work in front-end engineering and his exploration of back-end engineering. He also talks about his role in TechIsHiring, an organization that helps people find job opportunities in the tech industry. Chad's passion for exploring interesting problems and ideas in the industry motivates him. He shares his interest in Rust and how it can help us write cleaner code, especially in contrast to the sometimes chaotic JavaScript ecosystem. Tune in to hear Chad's insights and experiences as a software engineer.",
-  featuredEpisodeTrack: "techishiring-com",
+    "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world.",
+  featuredEpisodeTrack: "getting-started-podcast",
   featuredEpisodeURL: "episode-1",
   // <<-- END :: Featured episode configuration
-  headerBackgroundColor: "#1c1c44",
-  headerForegroundColor: "#fff",
-  hostName: "Bronwyn Fleurs",
-  hostProfilePicture: "bronwyn-fleurs",
-  logo: "logo.svg",
-  logoHeight: "275",
-  logoWidth: "500",
+  // Header Configuration
+  headerBackgroundColor: "#1c1c44", // Header background color
+  headerForegroundColor: "#fff",    // Header text color
+  
+  // Host Information
+  hostName: "Your Name",                    // Your name as the podcast host
+  hostProfilePicture: "your-profile-picture", // Your profile image filename (without extension)
+  
+  // Logo Configuration
+  logo: "logo.svg",        // Your logo filename
+  logoHeight: "275",       // Logo height in pixels
+  logoWidth: "500",        // Logo width in pixels
   mainNavigation: [
     {
       name: "Home",

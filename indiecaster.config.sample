@@ -5,27 +5,27 @@ export const indieCasterConfig = {
   colorSecondaryColor: "#dab97e",
   colorSecondaryColorDark: "#38290d",
   colorSecondaryColorLight: "#fff1d7",
-  domain: "indiecastor.com",
+  domain: "[YOUR_DOMAIN]",
   // <<-- START :: Your elevator pitch
   elevatorPitch:
-    "The Mycelium Network podcast. A podcast about early-stage web developers and the mentors, teachers, and communities who help them along the way.",
+    "[YOUR_PODCAST_NAME] - [BRIEF_DESCRIPTION_OF_YOUR_PODCAST]",
   // <<-- END :: Your elevator pitch
   // <<-- START :: Featured episode configuration (OPTIONAL)
   // Remove this entire section if you want to use the latest published episode instead
-  featuredEpisodeGuestName: "Jane Springfield",
-  featuredEpisodeGuestProfilePicture: "jane-springfield",
+  featuredEpisodeGuestName: "[GUEST_NAME]",
+  featuredEpisodeGuestProfilePicture: "[GUEST_PROFILE_PICTURE]",
   featuredEpisodeTitle:
-    "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance",
+    "[EPISODE_TITLE]",
   featuredEpisodeSummary:
-    "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry. Chad discusses his work in front-end engineering and his exploration of back-end engineering. He also talks about his role in TechIsHiring, an organization that helps people find job opportunities in the tech industry. Chad's passion for exploring interesting problems and ideas in the industry motivates him. He shares his interest in Rust and how it can help us write cleaner code, especially in contrast to the sometimes chaotic JavaScript ecosystem. Tune in to hear Chad's insights and experiences as a software engineer.",
-  featuredEpisodeTrack: "promo",
+    "[EPISODE_SUMMARY]",
+  featuredEpisodeTrack: "[AUDIO_FILE_NAME]",
   featuredEpisodeURL:
-    "techishiring-com-people-first-open-source-as-career-growth-a-i-nuance",
+    "[EPISODE_SLUG]",
   // <<-- END :: Featured episode configuration
   headerBackgroundColor: "#1c1c44",
   headerForegroundColor: "#fff",
-  hostName: "Schalk Neethling",
-  hostProfilePicture: "schalk-neethling",
+  hostName: "[YOUR_NAME]",
+  hostProfilePicture: "[YOUR_PROFILE_PICTURE]",
   logo: "logo.svg",
   logoHeight: "275",
   logoWidth: "500",

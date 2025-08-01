@@ -1,73 +1,82 @@
 ---
-title: "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance"
-description: "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry. Chad discusses his work in front-end engineering and his exploration of back-end engineering. He also talks about his role in TechIsHiring, an organization that helps people find job opportunities in the tech industry."
+title: "Getting Started with Your First Podcast"
+description: "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world."
 pubDate: 2024-01-15
 duration: "45:30"
-audioFile: "techishiring-com"
+audioFile: "getting-started-podcast"
 artwork:
-  src: "jane-springfield"
-  alt: "Jane Springfield discussing tech hiring and open source"
+  src: "episode-1-artwork"
+  alt: "Getting Started with Your First Podcast artwork"
+hosts: ["main-host"]
 guests: ["jane-springfield"]
-tags: ["tech hiring", "open source", "career growth", "AI", "software engineering"]
+tags: ["podcasting", "getting started", "content creation", "audio production"]
 youtube: "dQw4w9WgXcQ"
 explicit: false
 episodeNumber: 1
 season: 1
-showNotes: "This episode covers the intersection of tech hiring, open source contributions, and AI in software development."
+showNotes: "Learn the fundamentals of starting your own podcast from planning to publishing."
 ---
 
-# Episode 1: TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance
+# Episode 1: Getting Started with Your First Podcast
 
-Welcome to the first episode of the Mycelium Network Podcast! In this episode, we dive deep into the world of tech hiring, open source contributions, and the nuances of AI in software development.
+Welcome to the first episode of [YOUR_PODCAST_NAME]! In this episode, we dive into the essential steps for launching your first podcast, covering everything from concept to publication.
 
 ## Key Topics Covered
 
-- **Tech Hiring Best Practices**: How to approach hiring in the tech industry with a people-first mindset
-- **Open Source Contributions**: Using open source as a pathway for career growth and skill development
-- **AI in Software Development**: Understanding the subtle nuances and practical applications of AI in coding
+- **Choosing Your Topic**: How to select a podcast topic that you're passionate about and that has an audience
+- **Planning Your Format**: Different podcast formats and how to choose the right one for your content
+- **Essential Equipment**: What you need to get started without breaking the bank
+- **Recording Your First Episode**: Tips for creating quality audio content
 
 ## Guest: Jane Springfield
 
-Jane Springfield is a software engineer with over 10 years of experience in the tech industry. She's passionate about helping developers grow their careers through open source contributions and has been involved with TechIsHiring.com for the past 3 years.
+Jane Springfield is a podcast consultant and producer with over 5 years of experience helping creators launch successful shows. She specializes in helping new podcasters find their voice and build their audience.
 
 ## Show Notes
 
-### Tech Hiring Insights
+### Choosing Your Topic
 
-Jane shares her experience working with TechIsHiring.com and how they approach the hiring process differently. The organization focuses on:
+Jane shares her framework for selecting a podcast topic that will sustain your interest and attract listeners. The key is finding the intersection between your expertise, passion, and audience demand.
 
-- Building relationships with candidates before the interview process
-- Understanding the human side of technical skills
-- Creating inclusive hiring practices that benefit both companies and candidates
+### Planning Your Format
 
-### Open Source as Career Growth
+We discuss the different podcast formats available:
 
-We discuss how open source contributions can be a powerful tool for career advancement:
+- **Solo Episodes**: Great for sharing expertise and building thought leadership
+- **Interview Shows**: Perfect for networking and bringing diverse perspectives
+- **Co-hosted Shows**: Ideal for dynamic conversations and multiple viewpoints
+- **Storytelling**: Engaging for narrative-driven content
 
-- Building a public portfolio of work
-- Networking with other developers
-- Learning new technologies in a collaborative environment
-- Gaining real-world experience with production code
+### Essential Equipment
 
-### AI Nuances in Development
+You don't need expensive gear to start podcasting. Jane recommends:
 
-The conversation turns to AI and its role in modern software development:
+- A decent USB microphone (under $100)
+- Basic recording software (many free options available)
+- A quiet recording space
+- Simple editing tools
 
-- Understanding when and how to use AI tools effectively
-- The importance of human oversight in AI-assisted development
-- Balancing automation with creativity and problem-solving skills
+### Recording Your First Episode
+
+Tips for creating quality content from day one:
+
+- Practice your intro and outro
+- Keep episodes focused on one main topic
+- Don't worry about perfection - consistency is key
+- Engage with your audience from the beginning
 
 ## Resources Mentioned
 
-- [TechIsHiring.com](https://techishiring.com)
-- [GitHub Open Source Guide](https://opensource.guide)
-- [AI in Software Development Best Practices](https://example.com/ai-best-practices)
+- [Anchor](https://anchor.fm) - Free podcast hosting platform
+- [Audacity](https://audacityteam.org) - Free audio editing software
+- [Podcast Launch Checklist](https://example.com/checklist)
+- [Microphone Buying Guide](https://example.com/microphones)
 
 ## Connect with Jane
 
-- Social Media: [@janespringfield](https://social.example.com/janespringfield)
-- LinkedIn: [Jane Springfield](https://linkedin.com/in/janespringfield)
-- GitHub: [janespringfield](https://github.com/janespringfield)
+- **Twitter**: [@janespringfield](https://twitter.com/janespringfield)
+- **LinkedIn**: [Jane Springfield](https://linkedin.com/in/janespringfield)
+- **Website**: [janespringfield.com](https://janespringfield.com)
 
 ---
 

@@ -3,7 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://indiecastor.com',
+  site: "https://your.site",
   output: 'static', // Explicitly set output mode to static
   integrations: [sitemap()],
   image: {

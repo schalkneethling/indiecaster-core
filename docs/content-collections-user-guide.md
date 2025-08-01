@@ -52,6 +52,27 @@ This will automatically:
 4. Write the guest's detailed bio below the frontmatter
 5. Save the file - the guest profile will be available for episode references
 
+### Adding a New Host
+
+**Option 1: Using the Generator Script (Recommended)**
+```bash
+npm run create-host "Host Full Name"
+```
+
+This will automatically:
+- Create a properly formatted host file
+- Generate the correct filename (kebab-case)
+- Set up all required and optional fields
+- Include helpful content templates
+- Add references to this user guide
+
+**Option 2: Manual Creation**
+1. Create a new Markdown file in `src/content/hosts/`
+2. Use the filename format: `host-name.md` (this becomes the host ID)
+3. Add the required frontmatter information
+4. Write the host's detailed bio below the frontmatter
+5. Save the file - the host profile will be available for episode references
+
 ## Episode Management
 
 ### Episode File Structure
@@ -214,6 +235,91 @@ Detailed guest bio and background information...
 
 For complete guest field definitions and requirements, see the [Schema Reference](./schemas.md).
 
+## Host Management
+
+### Host File Structure
+
+```markdown
+---
+name: "Host Full Name"
+bio: "Brief bio for previews and SEO"
+profilePicture: "profile-picture-filename"
+socialLinks:
+  twitter: "https://twitter.com/username"
+  linkedin: "https://linkedin.com/in/username"
+  instagram: "https://instagram.com/username"
+website: "https://host-website.com"
+company: "Company Name"
+title: "Job Title"
+episodes: ["episode-slug-1", "episode-slug-2"]
+isMainHost: false
+---
+
+# Host Full Name
+
+Detailed host bio and background information...
+```
+
+For complete host field definitions and requirements, see the [Schema Reference](./schemas.md).
+
+### Host Content Guidelines
+
+#### Profile Information
+- **Name**: Use full name as it should appear publicly
+- **Bio**: Write a compelling 1-2 sentence bio
+- **Profile Picture**: Use high-quality, professional headshots
+- **Social Links**: Include all relevant social media profiles
+- **Website**: Link to personal website or portfolio
+- **Company/Title**: Current professional information
+- **isMainHost**: Set to `true` for the primary host (used for backward compatibility)
+
+#### Detailed Bio Content
+```markdown
+# Host Name
+
+## About Me
+
+Professional background and experience...
+
+## Current Work
+
+What you're currently working on...
+
+## Podcast Hosting
+
+Your role as a podcast host and what you bring to the show...
+
+## Notable Achievements
+
+Key accomplishments and contributions...
+
+## Speaking and Writing
+
+Public speaking, writing, and thought leadership...
+
+## Connect
+
+How listeners can get in touch and follow your work...
+```
+
+### Host Naming Conventions
+
+#### File Names
+- Use kebab-case: `host-name.md`
+- Use the host's name as the slug
+- Examples:
+  - `john-smith.md`
+  - `sarah-jones.md`
+  - `mike-wilson.md`
+
+#### Profile Pictures
+- Match the `profilePicture` field in frontmatter
+- Store in `public/profile-images/`
+- Use consistent naming: `host-name.png` or `host-name.webp`
+- Examples:
+  - `john-smith.png`
+  - `sarah-jones.webp`
+
 ### Guest Content Guidelines
 
 #### Profile Information
@@ -289,6 +395,18 @@ npm run create-episode "Your Episode Title"
 #### Guest Generator
 ```bash
 npm run create-guest "Guest Full Name"
+```
+
+**Features:**
+- Automatically generates kebab-case filenames
+- Creates all required and optional frontmatter fields
+- Includes comprehensive bio template
+- Adds helpful references to this user guide
+- Provides clear next steps after creation
+
+#### Host Generator
+```bash
+npm run create-host "Host Full Name"
 ```
 
 **Features:**

@@ -37,16 +37,16 @@ const ogUrl = url || `https://${domain}`;
 
 <!-- Additional SEO Meta Tags -->
 <meta name="robots" content="index, follow" />
-<meta name="author" content="Bronwyn Fleurs" />
+<meta name="author" content={indieCasterConfig.hostName} />
 <meta
   name="keywords"
-  content="podcast, technology, web development, indie podcasting, mycelium network"
+      content="podcast, [YOUR_TOPIC], [YOUR_TOPIC], indie podcasting, [YOUR_PODCAST_NAME]"
 />
 <meta name="theme-color" content="#1c1c44" />
 
 <!-- Podcast-specific meta tags -->
 <meta
   name="apple-itunes-app"
-  content="app-argument=podcast://indiecastor.com"
+  content={`app-argument=podcast://${indieCasterConfig.domain}`}
 />
 <meta name="application-name" content={podcastName} />

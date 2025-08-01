@@ -33,6 +33,7 @@ This document serves as the single source of truth for all content collection sc
 | `explicit` | Boolean | `false` | Whether episode contains explicit content | `false` |
 | `episodeNumber` | Number | - | Episode number in series | `1` |
 | `season` | Number | - | Season number | `1` |
+| `hosts` | Array[String] | `["main-host"]` | References to host slugs | `["main-host", "co-host"]` |
 | `hasVttTranscript` | Boolean | `false` | Whether VTT transcript exists | `true` |
 | `hasSrtTranscript` | Boolean | `false` | Whether SRT transcript exists | `true` |
 
@@ -40,21 +41,22 @@ This document serves as the single source of truth for all content collection sc
 
 ```yaml
 ---
-title: "TechIsHiring.com ~ People First ~ Open Source As Career Growth ~ A.I. Nuance"
-description: "In this episode of the Mycelium Network Podcast, Chad Stewart, a software engineer from Kingston, Jamaica, shares his journey in the tech industry."
+title: "Getting Started with Your First Podcast"
+description: "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world."
 pubDate: 2024-01-15
 duration: "45:30"
-audioFile: "techishiring-com-people-first-open-source-as-career-growth-a-i-nuance"
+audioFile: "getting-started-podcast"
 artwork:
-  src: "jane-springfield"
-  alt: "Jane Springfield discussing tech hiring and open source"
+  src: "episode-1-artwork"
+  alt: "Getting Started with Your First Podcast artwork"
   podcast:
     showCover: "show-cover" # 3000x3000px for podcast platforms
     episodeArt: "episode-1-art" # 3000x3000px for individual episodes
     heroImage: "hero-image" # 4320x1080px for wide format displays
-showNotes: "This episode covers the intersection of tech hiring, open source contributions, and AI in software development."
+showNotes: "Learn the fundamentals of starting your own podcast from planning to publishing."
+hosts: ["main-host"]
 guests: ["jane-springfield"]
-tags: ["tech hiring", "open source", "career growth", "AI", "software engineering"]
+tags: ["podcasting", "getting started", "content creation", "audio production"]
 youtube: "dQw4w9WgXcQ"
 explicit: false
 episodeNumber: 1
@@ -92,16 +94,56 @@ hasSrtTranscript: false
 ```yaml
 ---
 name: "Jane Springfield"
-bio: "Jane is a software engineer with over 10 years of experience in the tech industry. She's passionate about helping developers grow their careers through open source contributions."
+bio: "Jane Springfield is a podcast consultant and producer with over 5 years of experience helping creators launch successful shows. She specializes in helping new podcasters find their voice and build their audience."
 profilePicture: "jane-springfield"
-socialLinks:
-  twitter: "https://twitter.com/janespringfield"
+social:
+  twitter: "janespringfield"
   linkedin: "https://linkedin.com/in/janespringfield"
-  github: "https://github.com/janespringfield"
-website: "https://janespringfield.com"
-company: "TechIsHiring.com"
-title: "Senior Software Engineer"
+  github: "janespringfield"
+  website: "https://janespringfield.com"
 episodes: ["episode-1"]
+---
+```
+
+## Hosts Collection Schema
+
+**File**: `src/content/hosts/*.md`
+
+### Required Fields
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `name` | String | Host's full name | `"John Smith"` |
+| `bio` | String | Host's biography | `"John is a podcast host with over 5 years..."` |
+| `profilePicture` | String | Profile image filename (without extension) | `"john-smith"` |
+
+### Optional Fields
+
+| Field | Type | Description | Example |
+|-------|------|-------------|---------|
+| `socialLinks` | Object | Social media links | `{"twitter": "https://twitter.com/john", "linkedin": "https://linkedin.com/in/john"}` |
+| `website` | String | Personal website URL | `"https://johnsmith.com"` |
+| `company` | String | Company name | `"TechCorp"` |
+| `title` | String | Job title | `"Podcast Host"` |
+| `episodes` | Array[String] | References to episode slugs | `["episode-1", "episode-3"]` |
+| `isMainHost` | Boolean | `false` | Whether this is the main host | `true` |
+
+### Example Frontmatter
+
+```yaml
+---
+name: "John Smith"
+bio: "John Smith is a podcast host and creator passionate about sharing knowledge and connecting with listeners. He has been hosting podcasts for over 5 years and loves interviewing interesting guests."
+profilePicture: "john-smith"
+socialLinks:
+  twitter: "https://twitter.com/johnsmith"
+  linkedin: "https://linkedin.com/in/johnsmith"
+  instagram: "https://instagram.com/johnsmith"
+website: "https://johnsmith.com"
+company: "Independent Creator"
+title: "Podcast Host"
+episodes: ["episode-1", "episode-2"]
+isMainHost: true
 ---
 ```
 
@@ -152,7 +194,7 @@ Each episode requires artwork in multiple formats for optimal performance and Ap
 
 Audio files should be in MP3 format with descriptive filenames.
 
-**Example**: `techishiring-com-people-first-open-source-as-career-growth-a-i-nuance.mp3`
+**Example**: `getting-started-podcast.mp3`
 
 ## Related Documentation
 

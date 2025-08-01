@@ -1,55 +1,29 @@
 ---
 name: "Jane Springfield"
-bio: "Jane Springfield is a software engineer with over 10 years of experience in the tech industry. She's passionate about helping developers grow their careers through open source contributions and has been involved with TechIsHiring.com for the past 3 years. Jane specializes in front-end development and has contributed to numerous open source projects."
+title: "Podcast Consultant & Producer"
+bio: "Jane Springfield is a podcast consultant and producer with over 5 years of experience helping creators launch successful shows. She specializes in helping new podcasters find their voice and build their audience."
 profilePicture: "jane-springfield"
-socialLinks:
-  social: "https://social.example.com/janespringfield"
+social:
+  twitter: "janespringfield"
   linkedin: "https://linkedin.com/in/janespringfield"
-  github: "https://github.com/janespringfield"
-website: "https://janespringfield.dev"
-company: "TechIsHiring.com"
-title: "Senior Software Engineer"
+  github: "janespringfield"
+  website: "https://janespringfield.com"
 episodes: ["episode-1"]
 ---
 
-# Jane Springfield
+Jane Springfield is a passionate advocate for independent podcasting and content creation. With over 5 years of experience in the podcasting industry, she has helped hundreds of creators launch and grow their shows.
 
-Jane Springfield is a passionate advocate for inclusive tech hiring and open source contributions. With over a decade of experience in software engineering, she has helped countless developers find their path in the tech industry.
+## About Jane
 
-## Background
-
-Jane started her career as a self-taught developer, which gives her unique insight into the challenges faced by those entering the tech industry through non-traditional paths. She believes strongly in the power of open source as a learning tool and career accelerator.
-
-## Current Work
-
-At TechIsHiring.com, Jane leads initiatives to:
-
-- Connect talented developers with companies that value diversity and inclusion
-- Promote open source contributions as a pathway to career growth
-- Advocate for better hiring practices in the tech industry
-- Support developers from underrepresented backgrounds
-
-## Open Source Contributions
-
-Jane has contributed to numerous open source projects, including:
-
-- React.js ecosystem projects
-- Developer tooling and utilities
-- Documentation and educational resources
-- Community building tools
-
-## Speaking and Writing
-
-Jane regularly speaks at conferences and meetups about:
-
-- Inclusive hiring practices
-- Open source contribution strategies
-- Career development for developers
-- Building diverse tech teams
+Jane has been working in the podcasting industry for 5 years, specializing in content strategy and audience development. She started her career as a radio producer before transitioning to podcasting, where she discovered her passion for helping independent creators succeed.
 
 ## Connect with Jane
 
-- **Website**: [janespringfield.dev](https://janespringfield.dev)
-- **Social Media**: [@janespringfield](https://social.example.com/janespringfield)
+- **Twitter**: [@janespringfield](https://twitter.com/janespringfield)
 - **LinkedIn**: [Jane Springfield](https://linkedin.com/in/janespringfield)
-- **GitHub**: [janespringfield](https://github.com/janespringfield) 
+- **GitHub**: [janespringfield](https://github.com/janespringfield)
+- **Website**: [janespringfield.com](https://janespringfield.com)
+
+## Episodes featuring Jane
+
+- [Episode 1: Getting Started with Your First Podcast](/episodes/episode-1/) 

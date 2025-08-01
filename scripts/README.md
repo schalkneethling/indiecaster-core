@@ -4,6 +4,19 @@ This directory contains Node.js scripts to help content creators generate proper
 
 ## Available Scripts
 
+### Podcast Initialization
+Interactive script to set up your podcast configuration.
+
+```bash
+npm run init-podcast
+```
+
+This script will prompt you for:
+- Podcast name and description
+- Host name
+- Domain name
+- Featured episode details (optional)
+
 ### Episode Generator
 ```bash
 npm run create-episode "Your Episode Title"
@@ -27,6 +40,18 @@ Creates a new guest file with:
 - Comprehensive bio template
 - References to the user guide
 
+### Demo Content Management
+```bash
+npm run demo-content seed <path-to-demo-folder>
+npm run demo-content teardown
+```
+
+Manages demo content for testing and demonstration:
+- **seed**: Populates the project with demo content from a specified folder
+- **teardown**: Removes demo content and restores original content
+- Automatically creates backups before seeding
+- Supports any folder structure that matches the project layout
+
 ## Features
 
 - **Automatic Filename Generation**: Converts titles to kebab-case
@@ -43,6 +68,13 @@ npm run create-episode "Building Sustainable Open Source Communities"
 
 # Create a guest profile
 npm run create-guest "Jane Springfield"
+
+# Seed demo content for testing
+npm run demo-content seed ./demo-content
+npm run demo-content seed /path/to/demo/folder
+
+# Remove demo content and restore original
+npm run demo-content teardown
 ```
 
 ## Generated Files

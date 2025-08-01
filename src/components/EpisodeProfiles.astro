@@ -2,20 +2,43 @@
 import CardPerson from "./CardPerson.astro";
 import { indieCasterConfig } from "../../indiecaster.config.js";
 import type { CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 interface Props {
   episode?: CollectionEntry<"episodes">;
 }
 
 const { episode } = Astro.props;
-const { hostName, hostProfilePicture, colorPrimaryColor } = indieCasterConfig;
+const { colorPrimaryColor } = indieCasterConfig;
 
-// Host information
-const host = {
-  name: hostName,
-  pictureSrc: `/profile-images/${hostProfilePicture}`,
-  type: "host",
-};
+// Get all hosts data
+const hostsData = (await getCollection("hosts" as any)) as any[];
+const hostsMap = new Map(hostsData.map((host) => [host.slug, host]));
+
+// Host information - handle multiple hosts
+const hosts = [];
+
+if (episode?.data.hosts && episode.data.hosts.length > 0) {
+  // Add all hosts
+  episode.data.hosts.forEach((hostSlug) => {
+    const hostData = hostsMap.get(hostSlug);
+    if (hostData) {
+      hosts.push({
+        name: hostData.data.name,
+        pictureSrc: `/profile-images/${hostData.data.profilePicture}`,
+        type: "host",
+      });
+    }
+  });
+} else {
+  // Fallback to config for backward compatibility
+  const { hostName, hostProfilePicture } = indieCasterConfig;
+  hosts.push({
+    name: hostName,
+    pictureSrc: `/profile-images/${hostProfilePicture}`,
+    type: "host",
+  });
+}
 
 // Guest information - handle multiple guests or no guests
 const guests = [];
@@ -40,11 +63,18 @@ if (episode?.data.guests && episode.data.guests.length > 0) {
 ---
 
 <ul class="reset-list featured-episode-profiles">
-  <li class="featured-episode-profile">
-    <CardPerson person={host}>
-      <h2 class="card-person-name" slot="card-person-name">{host.name}</h2>
-    </CardPerson>
-  </li>
+  {
+    // Show all hosts
+    hosts.map((host) => (
+      <li class="featured-episode-profile">
+        <CardPerson person={host}>
+          <h2 class="card-person-name" slot="card-person-name">
+            {host.name}
+          </h2>
+        </CardPerson>
+      </li>
+    ))
+  }
   {
     // Show all guests if episode has guests
     guests.map((guest) => (
