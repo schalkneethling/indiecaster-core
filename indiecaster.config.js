@@ -1,41 +1,34 @@
 export const indieCasterConfig = {
-  // Brand Colors - Customize these to match your podcast's branding
-  colorPrimaryColor: "#1c1c44",      // Main brand color
-  colorPrimaryColorDark: "#090913",   // Dark variant for backgrounds
-  colorPrimaryColorLight: "#f6f6ff",  // Light variant for text on dark backgrounds
-  colorSecondaryColor: "#dab97e",     // Accent color
-  colorSecondaryColorDark: "#38290d", // Dark accent variant
-  colorSecondaryColorLight: "#fff1d7", // Light accent variant
-  
-  // Site Configuration
-  domain: "[YOUR_DOMAIN]", // Your website domain (e.g., "mypodcast.com")
+  colorPrimaryColor: "#1c1c44",
+  colorPrimaryColorDark: "#090913",
+  colorPrimaryColorLight: "#f6f6ff",
+  colorSecondaryColor: "#dab97e",
+  colorSecondaryColorDark: "#38290d",
+  colorSecondaryColorLight: "#fff1d7",
+  domain: "[YOUR_DOMAIN]",
   // <<-- START :: Your elevator pitch
   elevatorPitch:
-    "The IndieCaster Podcast - A show about independent podcasting, content creation, and building your audience from the ground up.",
+    "[YOUR_PODCAST_NAME] - [BRIEF_DESCRIPTION_OF_YOUR_PODCAST]",
   // <<-- END :: Your elevator pitch
   // <<-- START :: Featured episode configuration (OPTIONAL)
   // Remove this entire section if you want to use the latest published episode instead
-  featuredEpisodeGuestName: "Jane Springfield",
-  featuredEpisodeGuestProfilePicture: "jane-springfield",
+  featuredEpisodeGuestName: "[GUEST_NAME]",
+  featuredEpisodeGuestProfilePicture: "[GUEST_PROFILE_PICTURE]",
   featuredEpisodeTitle:
-    "Getting Started with Your First Podcast",
+    "[EPISODE_TITLE]",
   featuredEpisodeSummary:
-    "In this episode, we discuss the essential steps to launch your first podcast, from choosing your topic and format to recording your first episode and publishing it to the world.",
-  featuredEpisodeTrack: "getting-started-podcast",
-  featuredEpisodeURL: "episode-1",
+    "[EPISODE_SUMMARY]",
+  featuredEpisodeTrack: "[AUDIO_FILE_NAME]",
+  featuredEpisodeURL:
+    "[EPISODE_SLUG]",
   // <<-- END :: Featured episode configuration
-  // Header Configuration
-  headerBackgroundColor: "#1c1c44", // Header background color
-  headerForegroundColor: "#fff",    // Header text color
-  
-  // Host Information
-  hostName: "Your Name",                    // Your name as the podcast host
-  hostProfilePicture: "your-profile-picture", // Your profile image filename (without extension)
-  
-  // Logo Configuration
-  logo: "logo.svg",        // Your logo filename
-  logoHeight: "275",       // Logo height in pixels
-  logoWidth: "500",        // Logo width in pixels
+  headerBackgroundColor: "#1c1c44",
+  headerForegroundColor: "#fff",
+  hostName: "[YOUR_NAME]",
+  hostProfilePicture: "[YOUR_PROFILE_PICTURE]",
+  logo: "logo.svg",
+  logoHeight: "275",
+  logoWidth: "500",
   mainNavigation: [
     {
       name: "Home",
