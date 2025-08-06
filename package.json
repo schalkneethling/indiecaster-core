@@ -21,7 +21,7 @@
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.0",
     "sharp": "^0.34.3",
-    "zod": "^4.0.14"
+    "zod": "^4.0.15"
   },
   "devDependencies": {
     "astro-integration-kit": "^0.18.0"
