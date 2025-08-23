@@ -12,7 +12,8 @@
     "create-guest": "node scripts/create-guest.js",
     "create-host": "node scripts/create-host.js",
     "init-podcast": "node scripts/init-podcast.js",
-    "demo-content": "node scripts/demo-content.js"
+    "demo-content": "node scripts/demo-content.js",
+    "import-rss": "node scripts/import-rss.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",
@@ -20,6 +21,7 @@
     "astro": "^5.12.7",
     "autoprefixer": "^10.4.21",
     "cssnano": "^7.1.0",
+    "rss-parser": "^3.13.0",
     "sharp": "^0.34.3",
     "zod": "^4.0.14"
   },

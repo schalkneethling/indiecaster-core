@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>Test Long Description</title>
+    <description>Testing long descriptions</description>
+    <link>https://example.com</link>
+    <language>en</language>
+    <itunes:author>Test Host</itunes:author>
+    
+    <item>
+      <title>Episode with Long Description</title>
+      <description>This is a very long episode description that should be truncated in the showNotes field but appear in full in the markdown body. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</description>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/episode.mp3" type="audio/mpeg" length="12345678"/>
+      <itunes:duration>25:30</itunes:duration>
+      <itunes:author>Test Host</itunes:author>
+    </item>
+    
+  </channel>
+</rss>

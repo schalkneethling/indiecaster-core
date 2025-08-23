@@ -15,11 +15,19 @@ A clean, customizable starter template for creating your own podcast website usi
    npm install
    ```
 
-3. **Initialize your podcast** (Recommended)
+3. **Initialize your podcast** (Choose one)
+   
+   **Option A: Start fresh**
    ```bash
    npm run init-podcast
    ```
    This interactive script will help you configure your podcast settings.
+   
+   **Option B: Import from existing RSS feed**
+   ```bash
+   npm run import-rss "https://your-podcast-feed.com/rss.xml"
+   ```
+   This will automatically import your existing episodes and create host profiles.
 
 4. **Or manually customize your configuration**
    - Edit `indiecaster.config.js` with your podcast details
@@ -112,9 +120,33 @@ npm run demo-content seed ./demo-content
 npm run demo-content teardown
 ```
 
+## 📂 RSS Import Feature
+
+IndieCaster includes a powerful RSS import feature to migrate existing podcasts:
+
+```bash
+# Import from existing RSS feed
+npm run import-rss "https://your-podcast-feed.com/rss.xml"
+
+# Preview import without creating files
+npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --dry-run
+
+# Show detailed output
+npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --verbose
+```
+
+The importer automatically:
+- Creates episode files from RSS entries
+- Generates host profiles from RSS metadata
+- Hotlinks to external audio and artwork files
+- Imports episodes as drafts for review
+
+See the [RSS Import Guide](docs/RSS-IMPORT-GUIDE.md) for complete details.
+
 ## 📚 Documentation
 
 - [Getting Started Guide](docs/GETTING-STARTED.md) - Complete setup instructions
+- [RSS Import Guide](docs/RSS-IMPORT-GUIDE.md) - Migrate existing podcasts
 - [Setup Checklist](docs/SETUP-CHECKLIST.md) - Step-by-step checklist
 - [Demo Content Guide](docs/DEMO-CONTENT-GUIDE.md) - Testing and demonstration content
 - [Content Collections Guide](docs/content-collections-user-guide.md)

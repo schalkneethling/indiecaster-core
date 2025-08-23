@@ -40,6 +40,23 @@ Creates a new guest file with:
 - Comprehensive bio template
 - References to the user guide
 
+### RSS Feed Import
+```bash
+npm run import-rss "https://podcast.example.com/feed.xml" [options]
+```
+
+Imports an existing podcast from its RSS feed:
+- **Automatic episode creation**: Converts RSS episodes to IndieCaster format
+- **Host detection**: Creates host stubs from RSS feed metadata
+- **External media handling**: Hotlinks to original audio/artwork files
+- **Draft mode**: Imports episodes as drafts by default for review
+- **Dry run support**: Preview import without creating files
+
+Options (use `--` before options when using npm):
+- `--dry-run`: Preview import without creating files
+- `--verbose`: Show detailed output during import
+- `--published`: Import episodes as published (default: draft)
+
 ### Demo Content Management
 ```bash
 npm run demo-content seed <path-to-demo-folder>
@@ -68,6 +85,10 @@ npm run create-episode "Building Sustainable Open Source Communities"
 
 # Create a guest profile
 npm run create-guest "Jane Springfield"
+
+# Import from RSS feed
+npm run import-rss "https://feeds.transistor.fm/my-podcast"
+npm run import-rss "https://anchor.fm/s/12345/podcast/rss" -- --dry-run --verbose
 
 # Seed demo content for testing
 npm run demo-content seed ./demo-content
