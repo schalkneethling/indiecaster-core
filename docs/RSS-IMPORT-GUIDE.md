@@ -30,8 +30,8 @@ npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --dry-run
 # Show detailed output during import
 npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --verbose
 
-# Import episodes as published (default: draft)
-npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --published
+# Import episodes as drafts (default: published)
+npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --draft
 
 # Combine options
 npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --dry-run --verbose
@@ -82,8 +82,8 @@ artwork:
   src: "episode-title-artwork"
   alt: "Episode artwork for Episode Title"
 showNotes: "Episode description and notes..."
-draft: true
-hosts: ["host-name"]
+draft: false
+hosts: ["main-host"]
 episodeNumber: 1
 season: 1
 ---
@@ -113,7 +113,15 @@ isMainHost: false
 
 After importing your RSS feed, follow this workflow to complete your migration:
 
-### Step 1: Configure Hosts
+### Step 1: Review Config Updates
+
+The import automatically updates your `indiecaster.config.js` with:
+- **Podcast Name**: From RSS `<title>`
+- **Elevator Pitch**: Podcast name + description
+- **Meta Description**: Truncated podcast description  
+- **Domain**: Extracted from podcast website URL (if provided)
+
+### Step 2: Configure Hosts
 
 ```bash
 npm run setup-hosts
@@ -167,7 +175,7 @@ Visit your local site to review imported episodes and ensure everything looks co
 - Some complex RSS feeds may need manual adjustment
 
 **Episodes Not Showing**
-- Check that episodes aren't marked as `draft: true`
+- Episodes are published by default (`draft: false`)
 - Verify episode files follow IndieCaster naming conventions
 - Ensure required fields are present in frontmatter
 

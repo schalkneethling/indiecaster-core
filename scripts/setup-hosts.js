@@ -75,48 +75,57 @@ async function promptForHost(isMainHost = true) {
   const profilePictureInput = await question(`Profile picture filename (default: ${profilePictureDefault}): `);
   const profilePicture = profilePictureInput.trim() || profilePictureDefault;
   
-  // Optional fields
-  console.log(`\n📝 Optional information for ${name}:`);
+  // Ask if they want to provide optional information
+  const wantsOptionalInfo = await question(`\nWould you like to add optional information for ${name} (company, website, social media)? (y/n): `);
   
-  const company = await question('Company (optional): ');
-  const title = await question('Job title (optional): ');
-  
+  let company = '';
+  let title = '';
   let website = '';
-  const websiteInput = await question('Website URL (optional): ');
-  if (websiteInput.trim()) {
-    if (isValidUrl(websiteInput.trim())) {
-      website = websiteInput.trim();
-    } else {
-      console.log('⚠️  Invalid URL format. Skipping website field.');
-    }
-  }
-  
-  // Social links
-  console.log(`\n🌐 Social media links for ${name} (optional, press Enter to skip):`);
   const socialLinks = {};
   
-  const twitter = await question('Twitter/X handle (without @): ');
-  if (twitter.trim()) {
-    socialLinks.twitter = `https://twitter.com/${twitter.trim().replace('@', '')}`;
-  }
-  
-  const linkedin = await question('LinkedIn username or full URL: ');
-  if (linkedin.trim()) {
-    if (linkedin.includes('linkedin.com')) {
-      socialLinks.linkedin = linkedin.trim();
-    } else {
-      socialLinks.linkedin = `https://linkedin.com/in/${linkedin.trim()}`;
+  if (wantsOptionalInfo.toLowerCase() === 'y' || wantsOptionalInfo.toLowerCase() === 'yes') {
+    console.log(`\n📝 Optional information for ${name}:`);
+    
+    company = await question('Company (optional): ');
+    title = await question('Job title (optional): ');
+    
+    const websiteInput = await question('Website URL (optional): ');
+    if (websiteInput.trim()) {
+      if (isValidUrl(websiteInput.trim())) {
+        website = websiteInput.trim();
+      } else {
+        console.log('⚠️  Invalid URL format. Skipping website field.');
+      }
     }
-  }
-  
-  const instagram = await question('Instagram handle (without @): ');
-  if (instagram.trim()) {
-    socialLinks.instagram = `https://instagram.com/${instagram.trim().replace('@', '')}`;
-  }
-  
-  const github = await question('GitHub username: ');
-  if (github.trim()) {
-    socialLinks.github = `https://github.com/${github.trim()}`;
+    
+    // Social links
+    console.log(`\n🌐 Social media links for ${name} (optional, press Enter to skip):`);
+    
+    const twitter = await question('Twitter/X handle (without @): ');
+    if (twitter.trim()) {
+      socialLinks.twitter = `https://twitter.com/${twitter.trim().replace('@', '')}`;
+    }
+    
+    const linkedin = await question('LinkedIn username or full URL: ');
+    if (linkedin.trim()) {
+      if (linkedin.includes('linkedin.com')) {
+        socialLinks.linkedin = linkedin.trim();
+      } else {
+        socialLinks.linkedin = `https://linkedin.com/in/${linkedin.trim()}`;
+      }
+    }
+    
+    const instagram = await question('Instagram handle (without @): ');
+    if (instagram.trim()) {
+      socialLinks.instagram = `https://instagram.com/${instagram.trim().replace('@', '')}`;
+    }
+    
+    const github = await question('GitHub username: ');
+    if (github.trim()) {
+      socialLinks.github = `https://github.com/${github.trim()}`;
+    }
+  } else {
+    console.log(`✅ Skipping optional information for ${name}`);
   }
   
   return {
@@ -270,6 +279,10 @@ async function main() {
     console.log('\n🔄 Updating episode files...');
     await updateEpisodeFiles(primaryResult.slug, coHostSlug);
     
+    // Update host configuration
+    console.log('\n⚙️ Updating host configuration...');
+    updateHostConfig(primaryResult.name, primaryResult.profilePicture);
+    
     console.log('\n🎉 Host setup completed successfully!');
     console.log('\n📝 Next steps:');
     console.log('1. Add profile pictures to public/profile-pictures/');
@@ -280,7 +293,46 @@ async function main() {
     console.error('\n❌ Error during host setup:', error.message);
     console.log('You can run this script again with: npm run setup-hosts');
   } finally {
-    rl.close();
+      rl.close();
+}
+
+function updateHostConfig(hostName, profilePicture) {
+  const configPath = 'indiecaster.config.js';
+  
+  if (!fs.existsSync(configPath)) {
+    console.log(`   ⚠️  Config file not found: ${configPath}`);
+    return;
+  }
+  
+  try {
+    let configContent = fs.readFileSync(configPath, 'utf8');
+    
+    // Escape quotes in values
+    const safeName = String(hostName || '').replace(/"/g, '\\"');
+    const safeProfilePic = String(profilePicture || '').replace(/"/g, '\\"');
+    
+    // Update host name
+    if (safeName) {
+      configContent = configContent.replace(
+        /hostName:\s*"[^"]*"/,
+        `hostName: "${safeName}"`
+      );
+      console.log(`   ✅ Updated host name: ${safeName}`);
+    }
+    
+    // Update host profile picture
+    if (safeProfilePic) {
+      configContent = configContent.replace(
+        /hostProfilePicture:\s*"[^"]*"/,
+        `hostProfilePicture: "${safeProfilePic}"`
+      );
+      console.log(`   ✅ Updated host profile picture: ${safeProfilePic}`);
+    }
+    
+    fs.writeFileSync(configPath, configContent);
+    
+  } catch (error) {
+    console.log(`   ⚠️  Could not update config: ${error.message}`);
   }
 }
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd">
+  <channel>
+    <title>Test Cleanup</title>
+    <description>Testing cleanup functionality</description>
+    <link>https://example.com</link>
+    <language>en</language>
+    
+    <item>
+      <title>Test Cleanup Episode</title>
+      <description>This episode will test the cleanup</description>
+      <pubDate>Mon, 01 Jan 2024 00:00:00 GMT</pubDate>
+      <enclosure url="https://example.com/episode.mp3" type="audio/mpeg" length="12345678"/>
+      <itunes:duration>10:00</itunes:duration>
+    </item>
+    
+  </channel>
+</rss>
