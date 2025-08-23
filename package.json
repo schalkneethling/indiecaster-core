@@ -13,7 +13,8 @@
     "create-host": "node scripts/create-host.js",
     "init-podcast": "node scripts/init-podcast.js",
     "demo-content": "node scripts/demo-content.js",
-    "import-rss": "node scripts/import-rss.js"
+    "import-rss": "node scripts/import-rss.js",
+    "setup-hosts": "node scripts/setup-hosts.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

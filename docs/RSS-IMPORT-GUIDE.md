@@ -7,11 +7,11 @@ The RSS Import feature allows you to migrate an existing podcast to IndieCaster 
 ## Features
 
 - **Automatic Episode Import**: Converts RSS episodes to IndieCaster format
-- **Host Detection**: Creates host profiles automatically from RSS metadata
 - **External Media Handling**: Hotlinks to original audio and artwork files
 - **Draft Mode**: Imports episodes as drafts by default for review
 - **Dry Run Support**: Preview import without creating files
 - **Duplicate Prevention**: Skips episodes that already exist
+- **Post-Import Host Setup**: Guides you through interactive host configuration
 
 ## Usage
 
@@ -49,18 +49,18 @@ npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --dry-run --verbos
 | `<itunes:duration>` | `duration` | Episode duration in MM:SS format |
 | `<enclosure url>` | `audioFile` | Audio file URL (hotlinked) |
 | `<itunes:image>` | `artwork.src` | Episode artwork URL (hotlinked) |
-| `<itunes:author>` | Host detection/creation | Creates host stubs |
+| `<itunes:author>` | Not used | Host setup is done separately |
 | `<itunes:episode>` | `episodeNumber` | Episode number |
 | `<itunes:season>` | `season` | Season number |
 | `<itunes:explicit>` | `explicit` | Explicit content flag |
 
-### Host Detection
+### Host Configuration
 
-The importer automatically detects hosts from:
-- RSS feed `<itunes:author>` field
-- Episode-level `<itunes:author>` fields
-- `<managingEditor>` field
-- `<itunes:owner>` information
+After import, episodes reference "main-host" by default. Use the interactive host setup to configure:
+- Primary host information (name, bio, profile picture)
+- Optional co-host
+- Social media links and contact information
+- Automatic episode updates with new host references
 
 ## Generated Files
 
@@ -109,26 +109,30 @@ isMainHost: false
 ---
 ```
 
-## Post-Import Steps
+## Post-Import Workflow
 
-After importing your RSS feed, follow these steps to complete your migration:
+After importing your RSS feed, follow this workflow to complete your migration:
 
-### 1. Review Episodes
+### Step 1: Configure Hosts
+
+```bash
+npm run setup-hosts
+```
+
+This interactive script will:
+- Guide you through setting up your primary host
+- Optionally configure a co-host
+- Validate all required and optional information
+- Update all episodes to reference the new hosts
+
+### Step 2: Review Episodes
 
 - Navigate to `src/content/episodes/`
 - Review each imported episode file
 - Update descriptions and show notes as needed
 - Set `draft: false` on episodes ready to publish
 
-### 2. Update Host Profiles
-
-- Navigate to `src/content/hosts/`
-- Fill out host bio information
-- Add profile pictures to `public/profile-pictures/`
-- Update social links and contact information
-- Set `isMainHost: true` for your primary host
-
-### 3. Handle Media Files
+### Step 3: Handle Media Files
 
 **Audio Files:**
 - Currently hotlinked to original sources
@@ -141,7 +145,7 @@ After importing your RSS feed, follow these steps to complete your migration:
 - Recommended formats: PNG, WebP
 - Recommended size: 3000x3000px for podcast platforms
 
-### 4. Test Your Import
+### Step 4: Test Your Import
 
 ```bash
 npm run dev

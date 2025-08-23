@@ -93,77 +93,14 @@ function extractDuration(duration) {
   return '00:00';
 }
 
-function extractHostsFromFeed(feed) {
-  const hosts = new Set();
-  
-  // Try to extract from various fields
-  if (feed['itunes:author']) hosts.add(feed['itunes:author']);
-  if (feed['itunes:owner'] && feed['itunes:owner']['itunes:name']) {
-    hosts.add(feed['itunes:owner']['itunes:name']);
-  }
-  if (feed.managingEditor) hosts.add(feed.managingEditor);
-  
-  return Array.from(hosts).filter(host => host && typeof host === 'string' && host.trim());
-}
 
-function extractHostsFromEpisode(item) {
-  const hosts = new Set();
-  
-  if (item['itunes:author']) hosts.add(item['itunes:author']);
-  if (item.author) hosts.add(item.author);
-  
-  return Array.from(hosts).filter(host => host && typeof host === 'string' && host.trim());
-}
 
 function generateArtworkFilename(title, episodeNumber) {
   const slug = toKebabCase(title);
   return episodeNumber ? `episode-${episodeNumber}-${slug}` : slug;
 }
 
-function createHostStub(hostName) {
-  const slug = toKebabCase(hostName);
-  const filepath = path.join('src', 'content', 'hosts', `${slug}.md`);
-  
-  // Check if host already exists
-  if (fs.existsSync(filepath)) {
-    if (options.verbose) console.log(`   🔄 Host already exists: ${slug}`);
-    return slug;
-  }
-  
-  const hostContent = `---
-name: "${hostName}"
-bio: "Podcast host imported from RSS feed. Please update this bio with more details."
-profilePicture: "${slug}-profile"
-socialLinks: {}
-website: ""
-company: ""
-title: ""
-episodes: []
-isMainHost: false
----
 
-# ${hostName}
-
-*This host profile was automatically created during RSS import. Please update this content with detailed information about the host.*
-
-## About ${hostName}
-
-[Add host bio and background information here]
-
-## Connect with ${hostName}
-
-[Add social media links and contact information here]
-`;
-
-  if (!options.dryRun) {
-    fs.writeFileSync(filepath, hostContent);
-    console.log(`   ✅ Created host stub: ${slug}`);
-  } else {
-    console.log(`   🔍 Would create host stub: ${slug}`);
-  }
-  
-  return slug;
-}
 
 function createEpisodeFile(episode, episodeIndex, totalEpisodes) {
   const {
@@ -286,16 +223,7 @@ async function importRssFeed(url) {
       console.log(`🎨 Artwork: ${feed.image?.url || 'Not specified'}`);
     }
     
-    // Extract podcast-level hosts
-    const podcastHosts = extractHostsFromFeed(feed);
-    console.log(`\n👥 Podcast hosts detected: ${podcastHosts.join(', ') || 'None specified'}`);
-    
-    // Create host stubs
-    const hostSlugs = new Set();
-    for (const hostName of podcastHosts) {
-      const slug = createHostStub(hostName);
-      hostSlugs.add(slug);
-    }
+
     
     console.log(`\n📁 Starting episode import${options.dryRun ? ' (DRY RUN)' : ''}:`);
     
@@ -328,16 +256,8 @@ async function importRssFeed(url) {
         const season = item['itunes:season'] ? parseInt(item['itunes:season']) : null;
         const explicit = item['itunes:explicit'] === 'true' || item['itunes:explicit'] === 'yes';
         
-        // Extract episode-specific hosts
-        const episodeHosts = extractHostsFromEpisode(item);
-        const allHosts = [...new Set([...podcastHosts, ...episodeHosts])];
-        
-        // Create additional host stubs if needed
-        const episodeHostSlugs = [];
-        for (const hostName of allHosts) {
-          const slug = createHostStub(hostName);
-          episodeHostSlugs.push(slug);
-        }
+        // Set default host - user will configure hosts separately
+        const episodeHostSlugs = ['main-host'];
         
         // Generate episode slug
         const slug = toKebabCase(title);
@@ -352,7 +272,7 @@ async function importRssFeed(url) {
           episodeNumber,
           season,
           explicit,
-          hosts: episodeHostSlugs.length > 0 ? episodeHostSlugs : ['main-host'],
+          hosts: episodeHostSlugs,
           slug
         };
         
@@ -387,15 +307,14 @@ async function importRssFeed(url) {
     console.log(`   - Episodes created: ${createdCount}`);
     console.log(`   - Episodes skipped: ${skippedCount}`);
     console.log(`   - Total episodes: ${episodes.length}`);
-    console.log(`   - Hosts created: ${hostSlugs.size}`);
     
     if (options.dryRun) {
       console.log(`\n🔍 This was a dry run. No files were created.`);
       console.log(`💡 Run without --dry-run to actually import the episodes.`);
     } else {
       console.log(`\n📝 Next steps:`);
-      console.log(`   1. Review and edit the imported episodes in src/content/episodes/`);
-      console.log(`   2. Update host profiles in src/content/hosts/`);
+      console.log(`   1. 🎯 Run 'npm run setup-hosts' to configure your podcast hosts`);
+      console.log(`   2. Review and edit the imported episodes in src/content/episodes/`);
       console.log(`   3. Add local artwork files to public/episode-artwork/`);
       console.log(`   4. Set draft: false on episodes when ready to publish`);
       console.log(`   5. Run 'npm run dev' to preview your imported podcast`);
