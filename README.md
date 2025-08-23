@@ -137,9 +137,9 @@ npm run import-rss "https://your-podcast-feed.com/rss.xml" -- --verbose
 
 The importer automatically:
 - Creates episode files from RSS entries
-- Generates host profiles from RSS metadata
 - Hotlinks to external audio and artwork files
 - Imports episodes as drafts for review
+- Suggests running host setup after import
 
 See the [RSS Import Guide](docs/RSS-IMPORT-GUIDE.md) for complete details.
 
