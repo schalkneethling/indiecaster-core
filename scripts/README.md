@@ -48,13 +48,14 @@ npm run import-rss "https://podcast.example.com/feed.xml" [options]
 Imports an existing podcast from its RSS feed:
 - **Automatic episode creation**: Converts RSS episodes to IndieCaster format
 - **External media handling**: Hotlinks to original audio/artwork files
-- **Draft mode**: Imports episodes as drafts by default for review
+- **Published by default**: Imports episodes as published (ready to view)
 - **Dry run support**: Preview import without creating files
+- **Config updates**: Automatically updates podcast metadata
 
 Options (use `--` before options when using npm):
 - `--dry-run`: Preview import without creating files
 - `--verbose`: Show detailed output during import
-- `--published`: Import episodes as published (default: draft)
+- `--draft`: Import episodes as drafts (default: published)
 
 ### Host Setup (Post-Import)
 ```bash
@@ -100,6 +101,7 @@ npm run create-guest "Jane Springfield"
 # Import from RSS feed
 npm run import-rss "https://feeds.transistor.fm/my-podcast"
 npm run import-rss "https://anchor.fm/s/12345/podcast/rss" -- --dry-run --verbose
+npm run import-rss "https://feeds.transistor.fm/my-podcast" -- --draft
 
 # Set up hosts after import
 npm run setup-hosts

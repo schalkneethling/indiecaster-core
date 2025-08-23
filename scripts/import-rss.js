@@ -19,11 +19,11 @@ const parser = new Parser({
 // Handle both direct node execution and npm script execution
 const args = process.argv.slice(2);
 const rssUrl = args.find(arg => !arg.startsWith('--'));
-const options = {
-  dryRun: args.includes('--dry-run'),
-  verbose: args.includes('--verbose'),
-  draft: !args.includes('--published')
-};
+  const options = {
+    dryRun: args.includes('--dry-run'),
+    verbose: args.includes('--verbose'),
+    draft: args.includes('--draft')
+  };
 
 if (!rssUrl) {
   console.error('❌ Error: Please provide an RSS feed URL');
@@ -31,7 +31,7 @@ if (!rssUrl) {
   console.log('Options:');
   console.log('  --dry-run     Preview import without creating files');
   console.log('  --verbose     Show detailed output');
-  console.log('  --published   Import episodes as published (default: draft)');
+  console.log('  --draft       Import episodes as drafts (default: published)');
   process.exit(1);
 }
 
@@ -312,12 +312,21 @@ async function importRssFeed(url) {
       console.log(`\n🔍 This was a dry run. No files were created.`);
       console.log(`💡 Run without --dry-run to actually import the episodes.`);
     } else {
+      // Clean up demo/sample files after successful import
+      if (createdCount > 0) {
+        console.log(`\n🧹 Cleaning up demo files...`);
+        cleanupDemoFiles();
+        
+        // Update podcast configuration
+        console.log(`\n⚙️  Updating podcast configuration...`);
+        updateIndieCasterConfig(feed);
+      }
+      
       console.log(`\n📝 Next steps:`);
       console.log(`   1. 🎯 Run 'npm run setup-hosts' to configure your podcast hosts`);
       console.log(`   2. Review and edit the imported episodes in src/content/episodes/`);
       console.log(`   3. Add local artwork files to public/episode-artwork/`);
-      console.log(`   4. Set draft: false on episodes when ready to publish`);
-      console.log(`   5. Run 'npm run dev' to preview your imported podcast`);
+      console.log(`   4. Run 'npm run dev' to preview your imported podcast`);
     }
     
   } catch (error) {
@@ -334,6 +343,114 @@ async function importRssFeed(url) {
     console.log('   - Ensure you have write permissions to the content directories');
     
     process.exit(1);
+  }
+}
+
+function cleanupDemoFiles() {
+  const filesToCleanup = [
+    path.join('src', 'content', 'episodes', 'episode-1.md'),
+    path.join('src', 'content', 'hosts', 'main-host.md'),
+    path.join('src', 'content', 'guests', 'jane-springfield.md')
+  ];
+  
+  let cleanedCount = 0;
+  
+  for (const filePath of filesToCleanup) {
+    if (fs.existsSync(filePath)) {
+      try {
+        fs.unlinkSync(filePath);
+        cleanedCount++;
+        if (options.verbose) {
+          console.log(`   🗑️  Removed: ${filePath}`);
+        }
+      } catch (error) {
+        if (options.verbose) {
+          console.log(`   ⚠️  Could not remove: ${filePath} (${error.message})`);
+        }
+      }
+    }
+  }
+  
+  if (cleanedCount > 0) {
+    console.log(`   ✅ Removed ${cleanedCount} demo file(s)`);
+  } else {
+    if (options.verbose) {
+      console.log(`   ℹ️  No demo files found to clean up`);
+    }
+  }
+}
+
+function updateIndieCasterConfig(podcastData) {
+  const configPath = 'indiecaster.config.js';
+  
+  if (!fs.existsSync(configPath)) {
+    if (options.verbose) {
+      console.log(`   ⚠️  Config file not found: ${configPath}`);
+    }
+    return;
+  }
+  
+  try {
+    let configContent = fs.readFileSync(configPath, 'utf8');
+    
+    // Extract clean values from podcast data
+    const title = String(podcastData.title || '').replace(/"/g, '\\"');
+    const description = String(podcastData.description || '').replace(/"/g, '\\"');
+    const link = String(podcastData.link || '');
+    const image = String(podcastData.image?.url || podcastData.itunes?.image || '');
+    
+    // Update podcast name
+    if (title) {
+      configContent = configContent.replace(
+        /podcastName:\s*"[^"]*"/,
+        `podcastName: "${title}"`
+      );
+    }
+    
+    // Update elevator pitch (podcast name + description)
+    if (title && description) {
+      const elevatorPitch = `${title} - ${description.substring(0, 100)}${description.length > 100 ? '...' : ''}`;
+      configContent = configContent.replace(
+        /elevatorPitch:\s*"[^"]*"/,
+        `elevatorPitch: "${elevatorPitch}"`
+      );
+    }
+    
+    // Update meta description
+    if (description) {
+      const metaDesc = description.substring(0, 150) + (description.length > 150 ? '...' : '');
+      configContent = configContent.replace(
+        /metaDefaultDescription:\s*"[^"]*"/,
+        `metaDefaultDescription: "${metaDesc}"`
+      );
+    }
+    
+    // Update domain if website is provided
+    if (link && link.startsWith('http')) {
+      try {
+        const url = new URL(link);
+        configContent = configContent.replace(
+          /domain:\s*"[^"]*"/,
+          `domain: "${url.hostname}"`
+        );
+      } catch (e) {
+        // Invalid URL, skip
+      }
+    }
+    
+    fs.writeFileSync(configPath, configContent);
+    
+    if (options.verbose) {
+      console.log(`   ✅ Updated podcast configuration`);
+      if (title) console.log(`      📻 Podcast name: ${title}`);
+      if (description) console.log(`      📝 Description updated`);
+      if (link) console.log(`      🔗 Website: ${link}`);
+    }
+    
+  } catch (error) {
+    if (options.verbose) {
+      console.log(`   ⚠️  Could not update config: ${error.message}`);
+    }
   }
 }
 
