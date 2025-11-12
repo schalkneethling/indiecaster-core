@@ -14,7 +14,8 @@
     "init-podcast": "node scripts/init-podcast.js",
     "demo-content": "node scripts/demo-content.js",
     "import-rss": "node scripts/import-rss.js",
-    "setup-hosts": "node scripts/setup-hosts.js"
+    "setup-hosts": "node scripts/setup-hosts.js",
+    "validate-media": "node scripts/validate-media.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",
