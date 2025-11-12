@@ -294,6 +294,7 @@ async function main() {
     console.log('You can run this script again with: npm run setup-hosts');
   } finally {
       rl.close();
+  }
 }
 
 function updateHostConfig(hostName, profilePicture) {
