@@ -14,7 +14,6 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { getCollection } from 'astro:content';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -121,56 +120,46 @@ function validateFavicons() {
   }
 }
 
-async function validateEpisodeAudio() {
+function validateEpisodeAudio() {
   console.log('\n' + colors.cyan + '━'.repeat(60) + colors.reset);
   console.log(colors.cyan + '🎧 Episode Audio Validation' + colors.reset);
   console.log(colors.cyan + '━'.repeat(60) + colors.reset + '\n');
 
-  try {
-    // Dynamically import Astro content collections
-    const { getCollection } = await import('../.astro/content.d.ts' || 'astro:content');
+  const episodesDir = 'src/content/episodes';
+  if (!fs.existsSync(episodesDir)) {
+    log('Episodes directory not found: ' + episodesDir, 'warning');
+    return;
+  }
 
-    // In a real implementation, we'd need to properly load the episodes
-    // For now, we'll check the episodes directory
-    const episodesDir = 'src/content/episodes';
-    if (!fs.existsSync(episodesDir)) {
-      log('Episodes directory not found: ' + episodesDir, 'warning');
-      return;
-    }
+  const episodeFiles = fs.readdirSync(episodesDir).filter(file => file.endsWith('.md'));
 
-    const episodeFiles = fs.readdirSync(episodesDir).filter(file => file.endsWith('.md'));
+  if (episodeFiles.length === 0) {
+    log('No episode files found', 'warning');
+    return;
+  }
 
-    if (episodeFiles.length === 0) {
-      log('No episode files found', 'warning');
-      return;
-    }
+  log(`Found ${episodeFiles.length} episode file(s)`, 'info');
 
-    log(`Found ${episodeFiles.length} episode file(s)`, 'info');
+  // Check for audio files mentioned in episodes
+  for (const episodeFile of episodeFiles) {
+    const filepath = path.join(episodesDir, episodeFile);
+    const content = fs.readFileSync(filepath, 'utf8');
 
-    // Basic check: look for audio files mentioned in episodes
-    for (const episodeFile of episodeFiles) {
-      const filepath = path.join(episodesDir, episodeFile);
-      const content = fs.readFileSync(filepath, 'utf8');
+    // Extract audioFile field from frontmatter
+    const audioFileMatch = content.match(/audioFile:\s*["']?([^"'\n]+)["']?/);
+    if (audioFileMatch) {
+      const audioFile = audioFileMatch[1];
+      const audioPath = `public/audio/episodes/${audioFile}.mp3`;
 
-      // Extract audioFile field from frontmatter
-      const audioFileMatch = content.match(/audioFile:\s*["']?([^"'\n]+)["']?/);
-      if (audioFileMatch) {
-        const audioFile = audioFileMatch[1];
-        const audioPath = `public/audio/episodes/${audioFile}.mp3`;
-
-        if (!fileExists(audioPath)) {
-          log(`Missing audio for ${episodeFile}: ${audioPath}`, 'error');
-        } else if (isPlaceholder(audioPath)) {
-          log(`Audio file for ${episodeFile} is a placeholder: ${audioPath}`, 'warning');
-        } else {
-          const sizeInMB = (getFileSize(audioPath) / (1024 * 1024)).toFixed(2);
-          log(`Found audio for ${episodeFile}: ${audioPath} (${sizeInMB} MB)`, 'success');
-        }
+      if (!fileExists(audioPath)) {
+        log(`Missing audio for ${episodeFile}: ${audioPath}`, 'error');
+      } else if (isPlaceholder(audioPath)) {
+        log(`Audio file for ${episodeFile} is a placeholder: ${audioPath}`, 'warning');
+      } else {
+        const sizeInMB = (getFileSize(audioPath) / (1024 * 1024)).toFixed(2);
+        log(`Found audio for ${episodeFile}: ${audioPath} (${sizeInMB} MB)`, 'success');
       }
     }
-  } catch (error) {
-    log(`Could not validate episode audio: ${error.message}`, 'warning');
-    log('Run "npm run dev" first to generate content collection types', 'info');
   }
 }
 
@@ -326,14 +315,14 @@ function printSummary() {
   }
 }
 
-async function main() {
+function main() {
   console.log('\n' + colors.cyan + '═'.repeat(60) + colors.reset);
   console.log(colors.cyan + '  IndieCaster Media Validation' + colors.reset);
   console.log(colors.cyan + '═'.repeat(60) + colors.reset);
 
   validatePodcastArtwork();
   validateFavicons();
-  await validateEpisodeAudio();
+  validateEpisodeAudio();
   validateProfileImages();
   validateEpisodeArtwork();
   validateSocialShareImage();
@@ -341,8 +330,10 @@ async function main() {
 }
 
 // Run validation
-main().catch(error => {
+try {
+  main();
+} catch (error) {
   console.error(colors.red + '\nValidation failed with error:' + colors.reset);
   console.error(error);
   process.exit(1);
-});
+}
