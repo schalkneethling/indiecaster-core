@@ -1,0 +1,257 @@
+---
+/**
+ * Setup Wizard - Step 2: Podcast Information
+ *
+ * Collects core podcast metadata and branding
+ */
+
+import SetupLayout from '../../components/setup/SetupLayout.astro';
+import FormField from '../../components/setup/FormField.astro';
+import FormActions from '../../components/setup/FormActions.astro';
+---
+
+<SetupLayout title="Podcast Information" currentStep={2}>
+  <form id="podcast-form" class="setup-form">
+    <p class="form-intro">
+      Tell us about your podcast. This information will be used throughout your website
+      and in your RSS feed for podcast directories.
+    </p>
+
+    <FormField
+      label="Podcast Name"
+      name="podcastName"
+      type="text"
+      required={true}
+      placeholder="My Awesome Podcast"
+      helpText="The name of your podcast as it will appear everywhere"
+    />
+
+    <FormField
+      label="Elevator Pitch"
+      name="elevatorPitch"
+      type="textarea"
+      required={true}
+      placeholder="A compelling one-sentence description of your podcast..."
+      helpText="A short, catchy description (max 160 characters)"
+      maxlength={160}
+      rows={3}
+    />
+
+    <FormField
+      label="Meta Description"
+      name="metaDescription"
+      type="textarea"
+      required={true}
+      placeholder="A more detailed description for search engines and social media..."
+      helpText="Used for SEO and social media previews (max 160 characters)"
+      maxlength={160}
+      rows={3}
+    />
+
+    <FormField
+      label="Domain"
+      name="domain"
+      type="text"
+      required={true}
+      placeholder="mypodcast.com"
+      pattern="^[a-zA-Z0-9][a-zA-Z0-9-]*\.[a-zA-Z]{2,}$"
+      helpText="Your domain name (without http:// or www)"
+    />
+
+    <div class="form-field">
+      <label for="field-metaLanguage" class="form-label">
+        Language
+        <span class="required">*</span>
+      </label>
+      <select id="field-metaLanguage" name="metaLanguage" class="form-input" required>
+        <option value="en" selected>English</option>
+        <option value="es">Spanish</option>
+        <option value="fr">French</option>
+        <option value="de">German</option>
+        <option value="it">Italian</option>
+        <option value="pt">Portuguese</option>
+        <option value="ja">Japanese</option>
+        <option value="zh">Chinese</option>
+        <option value="ko">Korean</option>
+        <option value="ar">Arabic</option>
+      </select>
+      <p class="help-text">Primary language of your podcast content</p>
+    </div>
+
+    <div class="color-section">
+      <h3>Brand Colors</h3>
+      <p class="section-description">
+        Choose colors that represent your podcast brand. These will be used for accents
+        and branding throughout your website.
+      </p>
+
+      <FormField
+        label="Primary Brand Color"
+        name="primaryBrandColor"
+        type="color"
+        value="#667eea"
+        helpText="Main color for buttons, links, and primary elements"
+      />
+
+      <FormField
+        label="Secondary Brand Color"
+        name="secondaryBrandColor"
+        type="color"
+        value="#764ba2"
+        helpText="Accent color for gradients and secondary elements"
+      />
+    </div>
+
+    <FormActions backUrl="/setup" nextLabel="Continue" />
+  </form>
+
+  <style>
+    .setup-form {
+      max-width: 600px;
+    }
+
+    .form-intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+
+    .form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .required {
+      color: #ef4444;
+      margin-left: 0.25rem;
+    }
+
+    .form-input,
+    select.form-input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      border: 2px solid #e5e7eb;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .form-input:focus,
+    select.form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    select.form-input {
+      cursor: pointer;
+    }
+
+    .help-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .color-section {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .color-section h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+      color: #1f2937;
+    }
+
+    .section-description {
+      font-size: 0.9375rem;
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .form-input:invalid:not(:placeholder-shown) {
+      border-color: #ef4444;
+    }
+
+    .form-input:valid:not(:placeholder-shown) {
+      border-color: #10b981;
+    }
+  </style>
+
+  <script>
+    const form = document.getElementById('podcast-form') as HTMLFormElement;
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data: Record<string, string> = {};
+
+        formData.forEach((value, key) => {
+          data[key] = value.toString();
+        });
+
+        try {
+          const response = await fetch('/api/setup/save-config', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            // Store in localStorage as backup
+            localStorage.setItem('podcast-info', JSON.stringify(data));
+
+            // Navigate to next step
+            window.location.href = '/setup/host';
+          } else {
+            const error = await response.json();
+            alert(`Error: ${error.message || 'Failed to save podcast information'}`);
+          }
+        } catch (error) {
+          // For now, just store in localStorage and continue
+          // This allows development without API endpoints
+          console.warn('API endpoint not available, storing in localStorage');
+          localStorage.setItem('podcast-info', JSON.stringify(data));
+          window.location.href = '/setup/host';
+        }
+      });
+
+      // Load saved data if available
+      const savedData = localStorage.getItem('podcast-info');
+      if (savedData) {
+        try {
+          const data = JSON.parse(savedData);
+          Object.keys(data).forEach(key => {
+            const input = form.elements.namedItem(key) as HTMLInputElement;
+            if (input) {
+              input.value = data[key];
+
+              // Trigger input event for character counters
+              input.dispatchEvent(new Event('input', { bubbles: true }));
+            }
+          });
+        } catch (error) {
+          console.error('Failed to load saved data:', error);
+        }
+      }
+    }
+  </script>
+</SetupLayout>

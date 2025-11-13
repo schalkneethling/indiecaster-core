@@ -1,0 +1,291 @@
+---
+/**
+ * Setup Wizard - Step 4: Social Media Links
+ *
+ * Collects social media profile URLs (optional)
+ */
+
+import SetupLayout from '../../components/setup/SetupLayout.astro';
+import FormField from '../../components/setup/FormField.astro';
+import FormActions from '../../components/setup/FormActions.astro';
+---
+
+<SetupLayout title="Social Media Links" currentStep={4}>
+  <form id="social-form" class="setup-form">
+    <p class="form-intro">
+      Connect your social media profiles to help your audience find and follow you.
+      <strong>All fields are optional</strong> - add as many or as few as you'd like.
+    </p>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+        </svg>
+        Twitter / X
+      </h3>
+      <FormField
+        label="Twitter / X Profile"
+        name="twitter"
+        type="url"
+        placeholder="https://twitter.com/yourhandle"
+        helpText="Your Twitter/X profile URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
+        </svg>
+        YouTube
+      </h3>
+      <FormField
+        label="YouTube Channel"
+        name="youtube"
+        type="url"
+        placeholder="https://youtube.com/@yourchannel"
+        helpText="Your YouTube channel URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        </svg>
+        Instagram
+      </h3>
+      <FormField
+        label="Instagram Profile"
+        name="instagram"
+        type="url"
+        placeholder="https://instagram.com/yourhandle"
+        helpText="Your Instagram profile URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+        Facebook
+      </h3>
+      <FormField
+        label="Facebook Page"
+        name="facebook"
+        type="url"
+        placeholder="https://facebook.com/yourpage"
+        helpText="Your Facebook page URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+        LinkedIn
+      </h3>
+      <FormField
+        label="LinkedIn Profile"
+        name="linkedin"
+        type="url"
+        placeholder="https://linkedin.com/in/yourprofile"
+        helpText="Your LinkedIn profile URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M21.327 8.566c0-.063.012-.124.012-.187 0-5.155-3.925-11.081-11.084-11.081-2.202 0-4.248.645-5.972 1.756 1.837-.204 3.723.261 5.23 1.387-1.776.032-3.275 1.207-3.792 2.823.246-.046.499-.071.759-.071.368 0 .724.049 1.061.143-1.856.373-3.254 2.015-3.254 3.984v.052c.547-.305 1.173-.49 1.838-.512-1.089.727-1.805 1.968-1.805 3.375 0 .743.199 1.44.548 2.041 2.001-2.457 4.992-4.069 8.366-4.237-.069.298-.105.608-.105.926 0 2.244 1.818 4.062 4.062 4.062 1.169 0 2.224-.493 2.965-1.281.925.182 1.794.52 2.579 1.016-.303-.949-.948-1.744-1.789-2.247.822.098 1.606.318 2.335.643-.544-.815-1.234-1.53-2.029-2.102l-.011-.001z"/>
+        </svg>
+        Mastodon
+      </h3>
+      <FormField
+        label="Mastodon Profile"
+        name="mastodon"
+        type="url"
+        placeholder="https://mastodon.social/@yourhandle"
+        helpText="Your Mastodon profile URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm3.882 8.118h-1.765c-.138 0-.327.181-.327.425v1.265h2.092l-.318 2.428h-1.774v7.764H10.2v-7.764H8.435V9.808H10.2V8.327c0-1.453.686-3.327 2.965-3.327h2.192v2.438h-1.475z"/>
+        </svg>
+        GitHub
+      </h3>
+      <FormField
+        label="GitHub Profile"
+        name="github"
+        type="url"
+        placeholder="https://github.com/yourusername"
+        helpText="Your GitHub profile URL"
+      />
+    </div>
+
+    <div class="social-section">
+      <h3>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm-.002 19.258c-4.01 0-7.26-3.25-7.26-7.258s3.25-7.258 7.26-7.258c1.96 0 3.602.724 4.86 1.912l-1.97 1.898c-.538-.514-1.476-1.112-2.89-1.112-2.475 0-4.494 2.05-4.494 4.56s2.02 4.56 4.494 4.56c2.87 0 3.944-2.06 4.11-3.127h-4.11V10.16h6.848c.066.364.11.728.11 1.207 0 4.147-2.77 7.091-6.957 7.091z"/>
+        </svg>
+        Website
+      </h3>
+      <FormField
+        label="Personal Website"
+        name="website"
+        type="url"
+        placeholder="https://yourwebsite.com"
+        helpText="Your personal website or blog URL"
+      />
+    </div>
+
+    <div class="info-box">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <strong>Remember:</strong> All social media fields are optional. You can always add or
+        update these links later from your podcast configuration file.
+      </div>
+    </div>
+
+    <FormActions
+      backUrl="/setup/host"
+      nextLabel="Continue"
+      showSkip={true}
+      skipUrl="/setup/episode"
+    />
+  </form>
+
+  <style>
+    .setup-form {
+      max-width: 600px;
+    }
+
+    .form-intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+
+    .form-intro strong {
+      color: #1f2937;
+    }
+
+    .social-section {
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .social-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .social-section h3 {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 1rem;
+    }
+
+    .social-section svg {
+      color: #667eea;
+    }
+
+    .info-box {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: #eff6ff;
+      border-left: 3px solid #3b82f6;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .info-box svg {
+      color: #3b82f6;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .info-box strong {
+      color: #1e40af;
+    }
+  </style>
+
+  <script>
+    const form = document.getElementById('social-form') as HTMLFormElement;
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(form);
+        const data: Record<string, string> = {};
+
+        // Only include fields that have values
+        formData.forEach((value, key) => {
+          if (value.toString().trim()) {
+            data[key] = value.toString();
+          }
+        });
+
+        try {
+          const response = await fetch('/api/setup/save-social', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (response.ok) {
+            // Store in localStorage as backup
+            localStorage.setItem('social-links', JSON.stringify(data));
+
+            // Navigate to next step
+            window.location.href = '/setup/episode';
+          } else {
+            const error = await response.json();
+            alert(`Error: ${error.message || 'Failed to save social links'}`);
+          }
+        } catch (error) {
+          // For now, just store in localStorage and continue
+          // This allows development without API endpoints
+          console.warn('API endpoint not available, storing in localStorage');
+          localStorage.setItem('social-links', JSON.stringify(data));
+          window.location.href = '/setup/episode';
+        }
+      });
+
+      // Load saved data if available
+      const savedData = localStorage.getItem('social-links');
+      if (savedData) {
+        try {
+          const data = JSON.parse(savedData);
+          Object.keys(data).forEach(key => {
+            const input = form.elements.namedItem(key) as HTMLInputElement;
+            if (input) {
+              input.value = data[key];
+            }
+          });
+        } catch (error) {
+          console.error('Failed to load saved data:', error);
+        }
+      }
+    }
+  </script>
+</SetupLayout>

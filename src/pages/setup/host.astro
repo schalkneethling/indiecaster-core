@@ -1,0 +1,426 @@
+---
+/**
+ * Setup Wizard - Step 3: Host Profile
+ *
+ * Collects host information and profile picture
+ */
+
+import SetupLayout from '../../components/setup/SetupLayout.astro';
+import FormField from '../../components/setup/FormField.astro';
+import FormActions from '../../components/setup/FormActions.astro';
+---
+
+<SetupLayout title="Host Profile" currentStep={3}>
+  <form id="host-form" class="setup-form">
+    <p class="form-intro">
+      Tell us about yourself as the podcast host. This information will appear on your
+      website's about page and in your podcast RSS feed.
+    </p>
+
+    <FormField
+      label="Host Name"
+      name="hostName"
+      type="text"
+      required={true}
+      placeholder="John Doe"
+      helpText="Your name as you'd like it to appear on the podcast"
+    />
+
+    <FormField
+      label="Host Bio"
+      name="hostBio"
+      type="textarea"
+      required={true}
+      placeholder="Tell your audience about yourself, your background, and why you started this podcast..."
+      helpText="A brief biography about yourself (recommended 150-300 words)"
+      rows={8}
+    />
+
+    <div class="form-field">
+      <label class="form-label">
+        Profile Picture
+        <span class="required">*</span>
+      </label>
+      <div class="profile-upload-area">
+        <div class="upload-preview" id="upload-preview">
+          <div class="preview-placeholder">
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <p>Upload your profile picture</p>
+          </div>
+          <img id="preview-image" alt="Profile preview" style="display: none;" />
+        </div>
+        <div class="upload-controls">
+          <input
+            type="file"
+            id="profile-picture"
+            name="profilePicture"
+            accept="image/jpeg,image/png,image/jpg"
+            required
+            style="display: none;"
+          />
+          <button type="button" class="btn-upload" id="upload-trigger">
+            Choose File
+          </button>
+          <button type="button" class="btn-remove" id="remove-image" style="display: none;">
+            Remove
+          </button>
+          <p class="upload-info">
+            JPG or PNG, at least 1400x1400px, max 5MB
+          </p>
+        </div>
+      </div>
+      <p class="help-text">
+        Your profile picture will be optimized automatically for web use. We recommend using
+        a square image with your face clearly visible.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+      </svg>
+      <div>
+        <strong>Tip:</strong> Your profile picture will be processed to create optimized versions
+        for different screen sizes and devices. The original file will be used to generate
+        PNG, WebP, and AVIF formats automatically.
+      </div>
+    </div>
+
+    <FormActions backUrl="/setup/podcast" nextLabel="Continue" />
+  </form>
+
+  <style>
+    .setup-form {
+      max-width: 600px;
+    }
+
+    .form-intro {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+
+    .form-field {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.5rem;
+      font-size: 0.9375rem;
+    }
+
+    .required {
+      color: #ef4444;
+      margin-left: 0.25rem;
+    }
+
+    .help-text {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: #6b7280;
+      line-height: 1.5;
+    }
+
+    .profile-upload-area {
+      display: flex;
+      gap: 1.5rem;
+      align-items: flex-start;
+      padding: 1.5rem;
+      border: 2px dashed #e5e7eb;
+      border-radius: 8px;
+      background: #f9fafb;
+    }
+
+    .upload-preview {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: white;
+      border: 2px solid #e5e7eb;
+      flex-shrink: 0;
+    }
+
+    .preview-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #9ca3af;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .preview-placeholder svg {
+      margin-bottom: 0.5rem;
+    }
+
+    .preview-placeholder p {
+      font-size: 0.75rem;
+      line-height: 1.3;
+    }
+
+    #preview-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .upload-controls {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .btn-upload,
+    .btn-remove {
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+
+    .btn-upload {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      align-self: flex-start;
+    }
+
+    .btn-upload:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .btn-remove {
+      background: white;
+      color: #ef4444;
+      border: 2px solid #ef4444;
+      align-self: flex-start;
+    }
+
+    .btn-remove:hover {
+      background: #fef2f2;
+    }
+
+    .upload-info {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin: 0;
+    }
+
+    .info-box {
+      display: flex;
+      gap: 0.75rem;
+      padding: 1rem;
+      background: #eff6ff;
+      border-left: 3px solid #3b82f6;
+      border-radius: 4px;
+      margin-bottom: 2rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .info-box svg {
+      color: #3b82f6;
+      flex-shrink: 0;
+      margin-top: 0.125rem;
+    }
+
+    .info-box strong {
+      color: #1e40af;
+    }
+
+    @media (max-width: 640px) {
+      .profile-upload-area {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .upload-controls {
+        width: 100%;
+      }
+
+      .btn-upload,
+      .btn-remove {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <script>
+    const form = document.getElementById('host-form') as HTMLFormElement;
+    const fileInput = document.getElementById('profile-picture') as HTMLInputElement;
+    const uploadTrigger = document.getElementById('upload-trigger') as HTMLButtonElement;
+    const removeButton = document.getElementById('remove-image') as HTMLButtonElement;
+    const previewImage = document.getElementById('preview-image') as HTMLImageElement;
+    const previewPlaceholder = document.querySelector('.preview-placeholder') as HTMLElement;
+
+    let selectedFile: File | null = null;
+
+    // Trigger file input when button clicked
+    uploadTrigger?.addEventListener('click', () => {
+      fileInput?.click();
+    });
+
+    // Handle file selection
+    fileInput?.addEventListener('change', (e) => {
+      const target = e.target as HTMLInputElement;
+      const file = target.files?.[0];
+
+      if (file) {
+        // Validate file type
+        if (!file.type.match(/^image\/(jpeg|png|jpg)$/)) {
+          alert('Please select a JPG or PNG image');
+          return;
+        }
+
+        // Validate file size (5MB max)
+        if (file.size > 5 * 1024 * 1024) {
+          alert('Image must be smaller than 5MB');
+          return;
+        }
+
+        selectedFile = file;
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          if (e.target?.result && previewImage) {
+            previewImage.src = e.target.result as string;
+            previewImage.style.display = 'block';
+            if (previewPlaceholder) {
+              previewPlaceholder.style.display = 'none';
+            }
+            if (removeButton) {
+              removeButton.style.display = 'inline-block';
+            }
+          }
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Handle remove button
+    removeButton?.addEventListener('click', () => {
+      selectedFile = null;
+      if (fileInput) {
+        fileInput.value = '';
+      }
+      if (previewImage) {
+        previewImage.style.display = 'none';
+        previewImage.src = '';
+      }
+      if (previewPlaceholder) {
+        previewPlaceholder.style.display = 'flex';
+      }
+      if (removeButton) {
+        removeButton.style.display = 'none';
+      }
+    });
+
+    // Form submission
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!selectedFile) {
+        alert('Please select a profile picture');
+        return;
+      }
+
+      const formData = new FormData(form);
+
+      try {
+        const response = await fetch('/api/setup/create-host', {
+          method: 'POST',
+          body: formData,
+        });
+
+        if (response.ok) {
+          // Store text data in localStorage as backup
+          const data: Record<string, string> = {
+            hostName: formData.get('hostName') as string,
+            hostBio: formData.get('hostBio') as string,
+          };
+          localStorage.setItem('host-info', JSON.stringify(data));
+
+          // Navigate to next step
+          window.location.href = '/setup/social';
+        } else {
+          const error = await response.json();
+          alert(`Error: ${error.message || 'Failed to save host profile'}`);
+        }
+      } catch (error) {
+        // For now, just store in localStorage and continue
+        // This allows development without API endpoints
+        console.warn('API endpoint not available, storing in localStorage');
+
+        const data: Record<string, string> = {
+          hostName: formData.get('hostName') as string,
+          hostBio: formData.get('hostBio') as string,
+        };
+
+        // Store image as base64 in localStorage
+        if (selectedFile) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            data.profilePictureData = reader.result as string;
+            data.profilePictureType = selectedFile!.type;
+            data.profilePictureName = selectedFile!.name;
+            localStorage.setItem('host-info', JSON.stringify(data));
+            window.location.href = '/setup/social';
+          };
+          reader.readAsDataURL(selectedFile);
+        } else {
+          localStorage.setItem('host-info', JSON.stringify(data));
+          window.location.href = '/setup/social';
+        }
+      }
+    });
+
+    // Load saved data if available
+    const savedData = localStorage.getItem('host-info');
+    if (savedData) {
+      try {
+        const data = JSON.parse(savedData);
+
+        // Fill in text fields
+        Object.keys(data).forEach(key => {
+          if (key === 'profilePictureData' || key === 'profilePictureType' || key === 'profilePictureName') {
+            return; // Skip image data
+          }
+          const input = form?.elements.namedItem(key) as HTMLInputElement;
+          if (input) {
+            input.value = data[key];
+          }
+        });
+
+        // Show saved image preview
+        if (data.profilePictureData && previewImage) {
+          previewImage.src = data.profilePictureData;
+          previewImage.style.display = 'block';
+          if (previewPlaceholder) {
+            previewPlaceholder.style.display = 'none';
+          }
+          if (removeButton) {
+            removeButton.style.display = 'inline-block';
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load saved data:', error);
+      }
+    }
+  </script>
+</SetupLayout>
