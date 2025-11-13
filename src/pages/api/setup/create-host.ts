@@ -111,14 +111,20 @@ ${hostBio}
       'utf-8'
     );
 
-    // Update indiecaster-config.js with host name
-    const configPath = path.join(process.cwd(), 'indiecaster-config.js');
+    // Update indiecaster.config.js with host name and profile picture
+    const configPath = path.join(process.cwd(), 'indiecaster.config.js');
     let configContent = fs.readFileSync(configPath, 'utf-8');
 
     // Update hostName in config
     configContent = configContent.replace(
       /(hostName:\s*['"`])([^'"`]*?)(['"`])/,
       `$1${hostName}$3`
+    );
+
+    // Update hostProfilePicture in config
+    configContent = configContent.replace(
+      /(hostProfilePicture:\s*['"`])([^'"`]*?)(['"`])/,
+      `$1${slug}$3`
     );
 
     fs.writeFileSync(configPath, configContent, 'utf-8');

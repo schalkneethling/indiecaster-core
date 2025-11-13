@@ -28,24 +28,24 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Read the current config file
-    const configPath = path.join(process.cwd(), 'indiecaster-config.js');
+    const configPath = path.join(process.cwd(), 'indiecaster.config.js');
     let configContent = fs.readFileSync(configPath, 'utf-8');
 
     // Update each field in the config
     const updates: Record<string, string> = {
       podcastName: data.podcastName.trim(),
       elevatorPitch: data.elevatorPitch.trim(),
-      metaDescription: data.metaDescription.trim(),
+      metaDefaultDescription: data.metaDescription.trim(),
       domain: data.domain.trim(),
       metaLanguage: data.metaLanguage.trim(),
     };
 
     // Add optional brand colors if provided
     if (data.primaryBrandColor) {
-      updates.primaryBrandColor = data.primaryBrandColor;
+      updates.colorPrimaryColor = data.primaryBrandColor;
     }
     if (data.secondaryBrandColor) {
-      updates.secondaryBrandColor = data.secondaryBrandColor;
+      updates.colorSecondaryColor = data.secondaryBrandColor;
     }
 
     // Replace values in config file

@@ -30,40 +30,33 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     // Read the current config file
-    const configPath = path.join(process.cwd(), 'indiecaster-config.js');
+    const configPath = path.join(process.cwd(), 'indiecaster.config.js');
     let configContent = fs.readFileSync(configPath, 'utf-8');
 
-    // Find the socialLinks section
-    const socialLinksPattern = /socialLinks:\s*\{([^}]*)\}/s;
-    const match = configContent.match(socialLinksPattern);
+    // Map wizard field names to config array names
+    const platformMap: Record<string, string> = {
+      twitter: 'Social Media',  // Maps to the X entry
+      youtube: 'YouTube',
+      instagram: 'Instagram',
+      facebook: 'Facebook',
+      linkedin: 'LinkedIn',
+      mastodon: 'Mastodon',
+      github: 'GitHub',
+      website: 'Discord'  // Using Discord entry for personal website, or we can add new entry
+    };
 
-    if (!match) {
-      return new Response(
-        JSON.stringify({
-          success: false,
-          message: 'Could not find socialLinks section in config file'
-        }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    // Build new socialLinks object
-    const socialLinks: string[] = [];
-    const platforms = ['twitter', 'youtube', 'instagram', 'facebook', 'linkedin', 'mastodon', 'github', 'website'];
-
-    for (const platform of platforms) {
-      const value = data[platform]?.trim() || '';
-      if (value) {
-        socialLinks.push(`    ${platform}: '${value}'`);
-      } else {
-        socialLinks.push(`    ${platform}: ''`);
+    // Update URLs in the socialMedia array
+    for (const [wizardKey, platformName] of Object.entries(platformMap)) {
+      const url = data[wizardKey]?.trim();
+      if (url) {
+        // Find and replace the URL for this platform
+        const pattern = new RegExp(
+          `(name:\\s*"${platformName}",[\\s\\S]*?url:\\s*")([^"]*)(")`,
+          'g'
+        );
+        configContent = configContent.replace(pattern, `$1${url}$3`);
       }
     }
-
-    const newSocialLinks = `socialLinks: {\n${socialLinks.join(',\n')}\n  }`;
-
-    // Replace socialLinks section
-    configContent = configContent.replace(socialLinksPattern, newSocialLinks);
 
     // Write updated config back to file
     fs.writeFileSync(configPath, configContent, 'utf-8');
