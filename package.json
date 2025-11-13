@@ -15,7 +15,8 @@
     "demo-content": "node scripts/demo-content.js",
     "import-rss": "node scripts/import-rss.js",
     "setup-hosts": "node scripts/setup-hosts.js",
-    "validate-media": "node scripts/validate-media.js"
+    "validate-media": "node scripts/validate-media.js",
+    "optimize-profile": "node scripts/optimize-profile-image.js"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.12",

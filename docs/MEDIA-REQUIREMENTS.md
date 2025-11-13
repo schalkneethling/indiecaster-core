@@ -172,19 +172,36 @@ artwork:
 ### Creating Profile Images
 
 **Recommended Process:**
-1. Start with high-resolution photo (1000x1000px or larger)
-2. Crop to square, center face
-3. Export in three formats using Sharp, Squoosh, or similar tools
+Use the built-in IndieCaster profile optimizer (uses Sharp automatically):
 
-**Using Sharp (Command Line):**
 ```bash
-# Install Sharp
-npm install -g sharp-cli
+# Syntax: npm run optimize-profile <path-to-photo> <output-filename>
+npm run optimize-profile ~/Downloads/headshot.jpg john-doe
+```
 
-# Convert to all formats
-sharp input.jpg -o profile-images/john-doe.png --resize 200 200
-sharp input.jpg -o profile-images/john-doe@2x.webp --resize 400 400 --format webp
-sharp input.jpg -o profile-images/john-doe@2x.avif --resize 400 400 --format avif
+This automatically:
+1. Loads your source image (any common format)
+2. Crops to square, centered on face
+3. Generates all three required formats with optimal settings:
+   - PNG at 200x200px
+   - WebP at 400x400px
+   - AVIF at 400x400px
+4. Saves to `public/profile-images/` with correct naming
+
+**Requirements for Source Image:**
+- Minimum size: 400x400px (larger recommended: 1000x1000px or more)
+- Format: Any common image format (JPG, PNG, WebP, etc.)
+- Content: Face clearly visible, professional appearance
+
+**Alternative Method - Using Sharp Manually:**
+```bash
+# If you need more control, you can use Sharp directly
+node -e "
+const sharp = require('sharp');
+sharp('input.jpg').resize(200, 200, {fit: 'cover'}).toFile('public/profile-images/john-doe.png');
+sharp('input.jpg').resize(400, 400, {fit: 'cover'}).webp({quality: 85}).toFile('public/profile-images/john-doe@2x.webp');
+sharp('input.jpg').resize(400, 400, {fit: 'cover'}).avif({quality: 80}).toFile('public/profile-images/john-doe@2x.avif');
+"
 ```
 
 **Using Online Tools:**

@@ -204,21 +204,32 @@ public/profile-images/
 
 **How to Create:**
 
-**Option A: Using Online Tools**
+**Option A: Using IndieCaster Script (Recommended)**
+
+Use the built-in optimizer that automatically generates all three required formats:
+
+```bash
+# Syntax: npm run optimize-profile <path-to-photo> <output-filename>
+npm run optimize-profile ~/Downloads/headshot.jpg john-doe
+```
+
+This creates:
+- `public/profile-images/john-doe.png` (200x200px)
+- `public/profile-images/john-doe@2x.webp` (400x400px)
+- `public/profile-images/john-doe@2x.avif` (400x400px)
+
+**Tips:**
+- Source image should be at least 400x400px (larger is better)
+- Use the same filename you specified in `setup-hosts`
+- The script automatically crops to square and optimizes file sizes
+
+**Option B: Using Online Tools**
+
+If you prefer a visual tool:
 1. Upload your photo to Squoosh: https://squoosh.app/
 2. Resize to 400x400 pixels
 3. Export as PNG (200x200), WebP (400x400), and AVIF (400x400)
-
-**Option B: Using Sharp (Command Line)**
-```bash
-# Install Sharp CLI globally
-npm install -g sharp-cli
-
-# Convert your photo (replace 'input.jpg' with your file)
-sharp input.jpg -o public/profile-images/your-name.png --resize 200 200
-sharp input.jpg -o public/profile-images/your-name@2x.webp --resize 400 400 --format webp
-sharp input.jpg -o public/profile-images/your-name@2x.avif --resize 400 400 --format avif
-```
+4. Manually save to `public/profile-images/` with correct naming
 
 #### 3. Episode Audio Files
 **Location:** `public/audio/episodes/`
