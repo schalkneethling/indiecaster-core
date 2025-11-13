@@ -19,7 +19,7 @@
     "optimize-profile": "node scripts/optimize-profile-image.js"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.12",
+    "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.15.5",
     "autoprefixer": "^10.4.21",
