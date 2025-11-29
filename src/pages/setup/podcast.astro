@@ -222,8 +222,15 @@ import FormActions from '../../components/setup/FormActions.astro';
             // Navigate to next step
             window.location.href = '/setup/host';
           } else {
-            const error = await response.json();
-            alert(`Error: ${error.message || 'Failed to save podcast information'}`);
+            let errorMessage = 'Failed to save podcast information';
+            try {
+              const error = await response.json();
+              errorMessage = error.message || errorMessage;
+            } catch (e) {
+              // If response is not JSON, use the status text
+              errorMessage = `${errorMessage} (${response.status} ${response.statusText})`;
+            }
+            alert(`Error: ${errorMessage}`);
           }
         } catch (error) {
           // For now, just store in localStorage and continue

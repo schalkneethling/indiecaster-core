@@ -10,6 +10,8 @@ import fs from 'fs';
 import path from 'path';
 import sharp from 'sharp';
 
+export const prerender = false; // Run this route server-side
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();

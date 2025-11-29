@@ -9,6 +9,8 @@ import type { APIRoute } from 'astro';
 import fs from 'fs';
 import path from 'path';
 
+export const prerender = false; // Run this route server-side
+
 export const POST: APIRoute = async ({ request }) => {
   try {
     const formData = await request.formData();
