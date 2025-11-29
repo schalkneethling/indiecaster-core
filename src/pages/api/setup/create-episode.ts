@@ -111,10 +111,15 @@ export const POST: APIRoute = async ({ request }) => {
     const frontmatter: string[] = [
       '---',
       `title: "${title}"`,
+      `description: "${description}"`,
       `pubDate: ${pubDate}`,
       `duration: "${duration}"`,
       `audioFile: "${slug}"`,
-      `explicit: ${explicit}`
+      `artwork:`,
+      `  src: "${slug}-artwork"`,
+      `  alt: "${title} artwork"`,
+      `explicit: ${explicit}`,
+      `showNotes: "${description}"`
     ];
 
     if (season) {
@@ -122,12 +127,18 @@ export const POST: APIRoute = async ({ request }) => {
     }
 
     if (episode) {
-      frontmatter.push(`episode: ${episode}`);
+      frontmatter.push(`episodeNumber: ${episode}`);
     }
 
     frontmatter.push('---');
 
     const episodeMarkdown = `${frontmatter.join('\n')}
+
+# ${title}
+
+${description}
+
+## Show Notes
 
 ${description}
 `;
