@@ -21,7 +21,7 @@
   "dependencies": {
     "@astrojs/rss": "^4.0.13",
     "@astrojs/sitemap": "^3.6.0",
-    "astro": "^5.15.5",
+    "astro": "^5.16.6",
     "autoprefixer": "^10.4.23",
     "cssnano": "^7.1.2",
     "rss-parser": "^3.13.0",
