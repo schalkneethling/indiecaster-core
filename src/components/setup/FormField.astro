@@ -1,0 +1,226 @@
+---
+/**
+ * Reusable Form Field Component
+ *
+ * Supports text, textarea, email, url, color inputs
+ * with validation, help text, and error messages
+ */
+
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'url' | 'textarea' | 'color' | 'date' | 'number';
+  required?: boolean;
+  placeholder?: string;
+  helpText?: string;
+  maxlength?: number;
+  pattern?: string;
+  value?: string;
+  rows?: number;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  required = false,
+  placeholder = '',
+  helpText = '',
+  maxlength,
+  pattern,
+  value = '',
+  rows = 4
+} = Astro.props;
+
+const inputId = `field-${name}`;
+---
+
+<div class="form-field">
+  <label for={inputId} class="form-label">
+    {label}
+    {required && <span class="required">*</span>}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={inputId}
+      name={name}
+      class="form-input"
+      placeholder={placeholder}
+      required={required}
+      maxlength={maxlength}
+      rows={rows}
+    >{value}</textarea>
+  ) : type === 'color' ? (
+    <div class="color-input-wrapper">
+      <input
+        type="color"
+        id={inputId}
+        name={name}
+        class="form-input-color"
+        value={value}
+        required={required}
+      />
+      <input
+        type="text"
+        class="form-input-color-text"
+        value={value}
+        placeholder="#667eea"
+        pattern="^#[0-9A-Fa-f]{6}$"
+        maxlength="7"
+      />
+    </div>
+  ) : (
+    <input
+      type={type}
+      id={inputId}
+      name={name}
+      class="form-input"
+      placeholder={placeholder}
+      required={required}
+      maxlength={maxlength}
+      pattern={pattern}
+      value={value}
+    />
+  )}
+
+  {helpText && <p class="help-text">{helpText}</p>}
+  {maxlength && type === 'textarea' && (
+    <p class="char-count">
+      <span class="current">0</span> / {maxlength}
+    </p>
+  )}
+</div>
+
+<style>
+  .form-field {
+    margin-bottom: 1.5rem;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 0.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .required {
+    color: #ef4444;
+    margin-left: 0.25rem;
+  }
+
+  .form-input,
+  .form-input-color-text {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.2s;
+    background: white;
+  }
+
+  .form-input:focus,
+  .form-input-color-text:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+  }
+
+  .form-input::placeholder {
+    color: #9ca3af;
+  }
+
+  textarea.form-input {
+    resize: vertical;
+    min-height: 100px;
+  }
+
+  .color-input-wrapper {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+  }
+
+  .form-input-color {
+    width: 60px;
+    height: 50px;
+    padding: 4px;
+    border: 2px solid #e5e7eb;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .form-input-color:hover {
+    border-color: #667eea;
+  }
+
+  .form-input-color-text {
+    flex: 1;
+    font-family: 'Monaco', 'Courier New', monospace;
+  }
+
+  .help-text {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.5;
+  }
+
+  .char-count {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #6b7280;
+    text-align: right;
+  }
+
+  .char-count .current {
+    font-weight: 600;
+  }
+
+  .form-input:invalid:not(:placeholder-shown) {
+    border-color: #ef4444;
+  }
+
+  .form-input:valid:not(:placeholder-shown) {
+    border-color: #10b981;
+  }
+</style>
+
+<script>
+  // Character counter for textareas
+  document.querySelectorAll('textarea[maxlength]').forEach(textarea => {
+    const field = textarea.closest('.form-field');
+    const counter = field?.querySelector('.char-count .current');
+
+    if (counter) {
+      const updateCount = () => {
+        counter.textContent = textarea.value.length.toString();
+      };
+
+      textarea.addEventListener('input', updateCount);
+      updateCount();
+    }
+  });
+
+  // Sync color picker with text input
+  document.querySelectorAll('.color-input-wrapper').forEach(wrapper => {
+    const colorInput = wrapper.querySelector('.form-input-color') as HTMLInputElement;
+    const textInput = wrapper.querySelector('.form-input-color-text') as HTMLInputElement;
+
+    if (colorInput && textInput) {
+      colorInput.addEventListener('input', () => {
+        textInput.value = colorInput.value;
+      });
+
+      textInput.addEventListener('input', () => {
+        if (/^#[0-9A-Fa-f]{6}$/.test(textInput.value)) {
+          colorInput.value = textInput.value;
+        }
+      });
+    }
+  });
+</script>

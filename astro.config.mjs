@@ -1,10 +1,14 @@
 import { defineConfig } from "astro/config";
 import sitemap from '@astrojs/sitemap';
+import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://your.site",
-  output: 'static', // Explicitly set output mode to static
+  output: 'server', // Use server mode to support API routes
+  adapter: node({
+    mode: 'standalone'
+  }),
   integrations: [sitemap()],
   image: {
     // Enable Sharp-based image optimization

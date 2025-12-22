@@ -1,0 +1,128 @@
+---
+/**
+ * Form Actions Component
+ *
+ * Navigation buttons for setup wizard steps
+ */
+
+interface Props {
+  backUrl?: string;
+  nextLabel?: string;
+  showSkip?: boolean;
+  skipUrl?: string;
+}
+
+const {
+  backUrl,
+  nextLabel = 'Continue',
+  showSkip = false,
+  skipUrl = ''
+} = Astro.props;
+---
+
+<div class="form-actions">
+  <div class="form-actions-left">
+    {backUrl && (
+      <a href={backUrl} class="btn btn-secondary">
+        ← Back
+      </a>
+    )}
+  </div>
+
+  <div class="form-actions-right">
+    {showSkip && skipUrl && (
+      <a href={skipUrl} class="btn btn-ghost">
+        Skip
+      </a>
+    )}
+    <button type="submit" class="btn btn-primary">
+      {nextLabel} →
+    </button>
+  </div>
+</div>
+
+<style>
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e5e7eb;
+    gap: 1rem;
+  }
+
+  .form-actions-left,
+  .form-actions-right {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  .btn-secondary {
+    background: white;
+    color: #667eea;
+    border: 2px solid #e5e7eb;
+  }
+
+  .btn-secondary:hover {
+    border-color: #667eea;
+    background: #f9fafb;
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: #6b7280;
+  }
+
+  .btn-ghost:hover {
+    color: #1f2937;
+    background: #f9fafb;
+  }
+
+  @media (max-width: 640px) {
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .form-actions-left,
+    .form-actions-right {
+      width: 100%;
+      justify-content: stretch;
+    }
+
+    .btn {
+      flex: 1;
+    }
+  }
+</style>

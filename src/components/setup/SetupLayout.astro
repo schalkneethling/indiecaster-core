@@ -1,0 +1,212 @@
+---
+/**
+ * Setup Wizard Layout
+ *
+ * Provides consistent layout for all setup wizard steps
+ * with progress indicator, branding, and navigation
+ */
+
+interface Props {
+  title: string;
+  currentStep: number;
+  totalSteps?: number;
+}
+
+const { title, currentStep, totalSteps = 6 } = Astro.props;
+
+const steps = [
+  { number: 1, name: 'Welcome', path: '/setup' },
+  { number: 2, name: 'Podcast Info', path: '/setup/podcast' },
+  { number: 3, name: 'Host Profile', path: '/setup/host' },
+  { number: 4, name: 'Social Media', path: '/setup/social' },
+  { number: 5, name: 'First Episode', path: '/setup/episode' },
+  { number: 6, name: 'Deploy', path: '/setup/deploy' }
+];
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>{title} - IndieCaster Setup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #1f2937;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+    }
+
+    .setup-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .setup-header {
+      text-align: center;
+      margin-bottom: 3rem;
+      color: white;
+    }
+
+    .setup-logo {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .setup-tagline {
+      font-size: 1.125rem;
+      opacity: 0.95;
+    }
+
+    .progress-bar {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      height: 8px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: white;
+      height: 100%;
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+
+    .steps-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      min-width: 80px;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 0.875rem;
+      margin-bottom: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .step.completed .step-circle {
+      background: white;
+      color: #667eea;
+    }
+
+    .step.active .step-circle {
+      background: #fbbf24;
+      color: white;
+      transform: scale(1.1);
+    }
+
+    .step.upcoming .step-circle {
+      background: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .step-name {
+      font-size: 0.75rem;
+      text-align: center;
+      color: white;
+      opacity: 0.9;
+    }
+
+    .step.active .step-name {
+      font-weight: bold;
+      opacity: 1;
+    }
+
+    .setup-card {
+      background: white;
+      border-radius: 12px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .setup-card h1 {
+      font-size: 1.875rem;
+      margin-bottom: 1.5rem;
+      color: #1f2937;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+
+      .setup-card {
+        padding: 1.5rem;
+      }
+
+      .setup-card h1 {
+        font-size: 1.5rem;
+      }
+
+      .steps-indicator {
+        display: none; /* Hide step names on mobile, show only progress bar */
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="setup-container">
+    <!-- Header -->
+    <div class="setup-header">
+      <div class="setup-logo">🎙️ IndieCaster</div>
+      <div class="setup-tagline">Let's set up your podcast website</div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="progress-bar">
+      <div class="progress-fill" style={`width: ${(currentStep / totalSteps) * 100}%`}></div>
+    </div>
+
+    <!-- Steps Indicator -->
+    <div class="steps-indicator">
+      {steps.map(step => (
+        <div class={`step ${
+          step.number < currentStep ? 'completed' :
+          step.number === currentStep ? 'active' :
+          'upcoming'
+        }`}>
+          <div class="step-circle">
+            {step.number < currentStep ? '✓' : step.number}
+          </div>
+          <div class="step-name">{step.name}</div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Content Card -->
+    <div class="setup-card">
+      <h1>{title}</h1>
+      <slot />
+    </div>
+  </div>
+</body>
+</html>
