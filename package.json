@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@astrojs/node": "^9.5.1",
-    "@astrojs/rss": "^4.0.13",
+    "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "astro": "^5.16.6",
     "autoprefixer": "^10.4.23",
